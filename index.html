@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shudhanshu Nidhi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base */
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Roboto', sans-serif;}
+    body { line-height:1.6; color:#333; background:#f8f9fa;}
+
+    .container { width:90%; max-width:1000px; margin:auto; padding:40px 0;}
+
+    /* Header */
+    header { background:#0d6efd; color:#fff; padding:20px 0;}
+    header h1 { text-align:center; font-size:2rem; }
+    header nav ul { display:flex; justify-content:center; list-style:none; margin-top:10px; }
+    header nav ul li { margin:0 15px; }
+    header nav ul li a { color:#fff; text-decoration:none; font-weight:500; transition:0.3s;}
+    header nav ul li a:hover { text-decoration:underline; }
+
+    /* Sections */
+    section { padding:60px 0; }
+    section h2 { text-align:center; font-size:2rem; margin-bottom:20px; color:#0d6efd; }
+    section p, section ul { text-align:center; max-width:800px; margin:10px auto; }
+
+    /* Achievements */
+    #achievements ul { list-style-type:square; }
+    #achievements ul li { margin:10px 0; }
+
+    /* Projects */
+    .project-card { background:#fff; padding:20px; margin:20px auto; border-radius:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1); max-width:800px; }
+
+    /* Buttons */
+    .btn { display:inline-block; background:#0d6efd; color:#fff; padding:10px 25px; border-radius:5px; text-decoration:none; margin-top:20px; transition:0.3s;}
+    .btn:hover { background:#0b5ed7; }
+
+    /* Footer */
+    footer { text-align:center; padding:20px 0; background:#212529; color:#fff; }
+
+    /* Responsive */
+    @media(max-width:768px) {
+      header nav ul { flex-direction:column; }
+      header nav ul li { margin:10px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER / NAVBAR -->
+  <header>
+    <div class="container">
+      <h1>Shudhanshu Nidhi</h1>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#achievements">Achievements</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HOME SECTION -->
+  <section id="home">
+    <div class="container home-content">
+      <h2>Hi, I'm Shudhanshu Nidhi 👋</h2>
+      <p>Student | Innovator | Youth Ambassador | Future Structural Engineer</p>
+      <p>From Kathmandu to international competitions, I explore mathematics, engineering, and real-world problem-solving.</p>
+      <a href="#contact" class="btn">Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about">
+    <div class="container">
+      <h2>About Me</h2>
+      <p>I'm Shudhanshu Nidhi, born and raised in Kathmandu, Nepal. I completed my +2 Science from Triton International College and discovered my passion for mathematics, engineering, and innovation.</p>
+      <p>My vision: To become a structural civil engineer and contribute to smarter, safer, and sustainable infrastructure in Nepal.</p>
+      <p>Values: Curiosity | Commitment | Integrity | Innovation | Impact</p>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS SECTION -->
+  <section id="achievements">
+    <div class="container">
+      <h2>Achievements</h2>
+      <ul>
+        <li>IYMC Ambassador 2024–25</li>
+        <li>Top 25% – Final Round, International Youth Math Challenge</li>
+        <li>Quantum Computing Fundamentals Quiz – 100/100 (IIT Roorkee)</li>
+        <li>Genius Array Math Competition – Certificate of Achievement</li>
+        <li>Member – Olympiad Club (Grade 11)</li>
+        <li>Winner – U16 Cricket Championship & Annual College Cricket Championship</li>
+        <li>Vice President (Nepal) – Cross the Skylimits (CTSC Education Pvt. Ltd.)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects">
+    <div class="container">
+      <h2>Projects</h2>
+      <div class="project-card">
+        <h3>Sensor-Based Automatic Street Light</h3>
+        <p>A smart system using motion and light sensors to automatically turn on street lights, reducing energy consumption and improving road safety.</p>
+      </div>
+      <div class="project-card">
+        <h3>Municipality Smart App (NEP AI)</h3>
+        <p>Developing a digital transformation solution for municipalities — tax payment, certificates, grievances, and services in real-time.</p>
+      </div>
+      <div class="project-card">
+        <h3>Research on Construction Delays in Nepal</h3>
+        <p>Analyzed why many tenders fail to complete on time, focusing on contractor selection, resource shortage, and accountability.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG SECTION -->
+  <section id="blog">
+    <div class="container">
+      <h2>Blog</h2>
+      <p>Coming soon… I’ll share insights on tech, education, civil engineering, and personal growth.</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact Me</h2>
+      <p>📍 Kathmandu, Nepal</p>
+      <p>📱 +977 9865161236</p>
+      <p>📧 shudhanshunidhi@gmail.com</p>
+      <p>🌐 <a href="https://shudhanshu.com.np">www.shudhanshu.com.np</a></p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Shudhanshu Nidhi. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
