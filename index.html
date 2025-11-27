@@ -1,250 +1,229 @@
-<!DOCTYPE html>
+--- index.html ---
+
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Name — Personal Website</title>
+    <meta name="description" content="Personal portfolio website for Your Name — projects, about, and contact." />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shudhanshu Nidhi</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    /* Reset & Base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Roboto', sans-serif;
-    }
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="brand">
+          <div class="logo">YN</div>
+          <div>
+            <div class="name">Your Name</div>
+            <div class="soft small">Designer • Developer • Creator</div>
+          </div>
+        </div>
 
-    body {
-      line-height: 1.6;
-      color: #333;
-      background: #f8f9fa;
-    }
+        <nav>
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
 
-    .container {
-      width: 90%;
-      max-width: 1000px;
-      margin: auto;
-      padding: 40px 0;
-    }
+      <main>
+        <section class="hero">
+          <div class="hero-inner">
+            <span class="eyebrow">Hi there — welcome</span>
+            <h1>I'm <span class="accent">Your Name</span></h1>
+            <p class="lead">I build beautiful, accessible websites and web apps. I specialize in frontend development, UI/UX, and performance-minded code.</p>
+            <div class="cta">
+              <a class="btn btn-primary" href="#projects">See my work</a>
+              <a class="btn btn-ghost" href="#contact">Get in touch</a>
+            </div>
+          </div>
+        </section>
 
-    /* Header */
-    header {
-      background: #0d6efd;
-      color: #fff;
-      padding: 20px 0;
-    }
+        <section id="about" class="mb-8">
+          <div class="about">
+            <div class="avatar">YN</div>
+            <div>
+              <h2>About me</h2>
+              <p class="muted">I'm a web developer with a focus on modern, responsive design and accessible user experiences. I love turning ideas into polished, pixel-perfect interfaces and fast, maintainable code.</p>
 
-    header h1 {
-      text-align: center;
-      font-size: 2rem;
-    }
+              <div class="skills">
+                <div class="tag">HTML</div>
+                <div class="tag">CSS</div>
+                <div class="tag">JavaScript</div>
+                <div class="tag">React</div>
+                <div class="tag">Design Systems</div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-    header nav ul {
-      display: flex;
-      justify-content: center;
-      list-style: none;
-      margin-top: 10px;
-    }
+        <section id="projects" class="mb-8">
+          <h2>Selected projects</h2>
+          <div class="grid">
+            <article class="card">
+              <h3>Project Title — Web app</h3>
+              <p class="muted">Short description: what it does, the problem it solves, and the tech used (React, Node, Postgres).</p>
+              <div class="card-actions">
+                <a class="btn btn-primary" href="#">Live</a>
+                <a class="btn btn-ghost" href="#">Code</a>
+              </div>
+            </article>
 
-    header nav ul li {
-      margin: 0 15px;
-    }
+            <article class="card">
+              <h3>Portfolio Website — Static</h3>
+              <p class="muted">A clean, fast personal site focused on accessibility and performance.</p>
+              <div class="card-actions">
+                <a class="btn btn-primary" href="#">Live</a>
+                <a class="btn btn-ghost" href="#">Case study</a>
+              </div>
+            </article>
 
-    header nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.3s;
-    }
+            <article class="card">
+              <h3>Design System — UI library</h3>
+              <p class="muted">Reusable components, tokens, and documentation for consistent product UI.</p>
+            </article>
 
-    header nav ul li a:hover {
-      text-decoration: underline;
-    }
+            <article class="card">
+              <h3>Open-source contribution</h3>
+              <p class="muted">Contributed features and bug fixes to an OSS project used by thousands.</p>
+            </article>
+          </div>
+        </section>
 
-    
-    /* Sections */
-    section {
-      padding: 60px 0;
-    }
+        <section id="contact">
+          <h2>Contact</h2>
+          <p class="muted">Want to work together or just say hi? Send a message.</p>
+          <div class="form-wrap">
+            <form onsubmit="handleSubmit(event)">
+              <input id="name" placeholder="Your name" required>
+              <input id="email" type="email" placeholder="Your email" required>
+              <textarea id="message" placeholder="Your message" required></textarea>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Send message</button>
+                <a class="btn btn-ghost" href="mailto:youremail@example.com">Email me</a>
+              </div>
+            </form>
+            <p id="status" class="muted status"></p>
+          </div>
+        </section>
+      </main>
 
-    section h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #0d6efd;
-    }
+      <footer>
+        <div class="footer-row">
+          <div class="soft">© <span id="year"></span> Your Name</div>
+          <div class="soft">•</div>
+          <div class="soft"><a href="#projects">Projects</a></div>
+          <div class="soft">•</div>
+          <div class="soft"><a href="#contact">Contact</a></div>
+        </div>
+      </footer>
+    </div>
 
-    section p,
-    section ul {
-      text-align: center;
-      max-width: 800px;
-      margin: 10px auto;
-    }
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
 
-    /* Achievements */
-    #achievements ul {
-      list-style-type: square;
-    }
+      function handleSubmit(e){
+        e.preventDefault();
+        var name = document.getElementById('name').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var message = document.getElementById('message').value.trim();
+        var status = document.getElementById('status');
 
-    #achievements ul li {
-      margin: 10px 0;
-    }
+        if(!name || !email || !message){ status.textContent = 'Please fill all fields.'; return; }
 
-    /* Projects */
-    .project-card {
-      background: #fff;
-      padding: 20px;
-      margin: 20px auto;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      max-width: 800px;
-    }
+        var subject = encodeURIComponent('Website contact from ' + name + ' (' + email + ')');
+        var body = encodeURIComponent(message + '\n\n— ' + name + '\n' + email);
+        window.location.href = 'mailto:youremail@example.com?subject='+subject+'&body='+body;
 
-    /* Buttons */
-    .btn {
-      display: inline-block;
-      background: #0d6efd;
-      color: #fff;
-      padding: 10px 25px;
-      border-radius: 5px;
-      text-decoration: none;
-      margin-top: 20px;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #0b5ed7;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px 0;
-      background: #212529;
-      color: #fff;
-    }
-
-
-    /* Responsive */
-    @media(max-width:768px) {
-      header nav ul {
-        flex-direction: column;
+        status.textContent = 'Opening your email client...';
       }
 
-      header nav ul li {
-        margin: 10px 0;
-      }
-    }
-  </style>
-</head>
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(function(a){
+        a.addEventListener('click', function(e){
+          var target = document.querySelector(this.getAttribute('href')); if(!target) return;
+          e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'});
+        });
+      });
+    </script>
 
-<body>
 
-  <!-- HEADER / NAVBAR -->
-  <header>
-    <div class="container">
-      <h1>Shudhanshu Nidhi</h1>
-      <nav>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#achievements">Achievements</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+--- styles.css ---
 
-  <!-- HOME SECTION -->
-  <section id="home">
-    <div class="container home-content">
-      <h2>Hi, I'm Shudhanshu Nidhi 👋</h2>
-      <p>Student | Innovator | Youth Ambassador | Future Structural Engineer</p>
-      <p>From Kathmandu to international competitions, I explore mathematics, engineering, and real-world
-        problem-solving.</p>
-      <a href="#contact" class="btn">Get in Touch</a>
-    </div>
-  </section>
+:root{
+  --bg: #0f1724; /* deep navy */
+  --card: #0b1220;
+  --muted: #94a3b8;
+  --accent-from: #60a5fa;
+  --accent-to: #7c3aed;
+  --glass: rgba(255,255,255,0.04);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+  background:linear-gradient(180deg,var(--bg) 0%, #071025 100%);
+  color:#e6eef8;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:48px;
+}
+a{color:var(--accent-from);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:28px}
 
-  <!-- ABOUT SECTION -->
-  <section id="about">
-    <div class="container">
-      <h2>About Me</h2>
-      <p>I'm Shudhanshu Nidhi, born and raised in Kathmandu, Nepal. I completed my +2 Science from Triton International
-        College and discovered my passion for mathematics, engineering, and innovation.</p>
-      <p>My vision: To become a structural civil engineer and contribute to smarter, safer, and sustainable
-        infrastructure in Nepal.</p>
-      <p>Values: Curiosity | Commitment | Integrity | Innovation | Impact</p>
-    </div>
-  </section>
+/* Header */
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--accent-from),var(--accent-to));display:inline-grid;place-items:center;font-weight:700;color:#021124}
+nav{display:flex;gap:18px;align-items:center}
+nav a{font-weight:600;color:rgba(230,238,248,0.9)}
 
-  <!-- ACHIEVEMENTS SECTION -->
-  <section id="achievements">
-    <div class="container">
-      <h2>Achievements</h2>
-      <ul>
-        <li>IYMC Ambassador 2024–25</li>
-        <li>Top 25% – Final Round, International Youth Math Challenge</li>
-        <li>Quantum Computing Fundamentals Quiz – 100/100 (IIT Roorkee)</li>
-        <li>Genius Array Math Competition – Certificate of Achievement</li>
-        <li>Member – Olympiad Club (Grade 11)</li>
-        <li>Winner – U16 Cricket Championship & Annual College Cricket Championship</li>
-        <li>Vice President (Nepal) – Cross the Skylimits (CTSC Education Pvt. Ltd.)</li>
-      </ul>
-    </div>
-  </section>
+/* Hero */
+.hero{display:grid;grid-template-columns:1fr;gap:22px;align-items:center;padding:36px 0}
+.hero-inner{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));padding:36px;border-radius:14px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+.eyebrow{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:13px;color:var(--muted);margin-bottom:8px}
+h1{font-size:36px;margin:6px 0}
+.lead{color:var(--muted);font-size:17px;margin:12px 0 18px}
+.cta{display:flex;gap:10px}
+.btn{padding:10px 16px;border-radius:12px;font-weight:700;border:0;cursor:pointer}
+.btn-primary{background:linear-gradient(90deg,var(--accent-from),var(--accent-to));color:#021124;text-decoration:none;padding:10px 14px;display:inline-block}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:10px 14px;display:inline-block}
 
-  <!-- PROJECTS SECTION -->
-  <section id="projects">
-    <div class="container">
-      <h2>Projects</h2>
-      <div class="project-card">
-        <h3>Sensor-Based Automatic Street Light</h3>
-        <p>A smart system using motion and light sensors to automatically turn on street lights, reducing energy
-          consumption and improving road safety.</p>
-      </div>
-      <div class="project-card">
-        <h3>Municipality Smart App (NEP AI)</h3>
-        <p>Developing a digital transformation solution for municipalities — tax payment, certificates, grievances, and
-          services in real-time.</p>
-      </div>
-      <div class="project-card">
-        <h3>Research on Construction Delays in Nepal</h3>
-        <p>Analyzed why many tenders fail to complete on time, focusing on contractor selection, resource shortage, and
-          accountability.</p>
-      </div>
-    </div>
-  </section>
+/* Grid for projects */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+.card h3{margin:0 0 8px}
+.muted{color:var(--muted)}
+.card-actions{margin-top:12px;display:flex;gap:8px}
 
-  <!-- BLOG SECTION -->
-  <section id="blog">
-    <div class="container">
-      <h2>Blog</h2>
-      <p>Coming soon… I’ll share insights on tech, education, civil engineering, and personal growth.</p>
-    </div>
-  </section>
+/* About */
+.about{display:flex;gap:28px;align-items:center}
+.avatar{width:160px;height:160px;border-radius:18px;background:linear-gradient(180deg,#1f2937,#0b1220);display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700}
+.skills{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tag{background:var(--glass);padding:8px 10px;border-radius:10px;font-weight:600;color:var(--muted);font-size:13px}
 
-  <!-- CONTACT SECTION -->
-  <section id="contact">
-    <div class="container">
-      <h2>Contact Me</h2>
-      <p>📍 Kathmandu, Nepal</p>
-      <p>📱 +977 9865161236</p>
-      <p>📧 shudhanshunidhi@gmail.com</p>
-      <p>🌐 <a href="https://shudhanshu.com.np">www.shudhanshu.com.np</a></p>
-    </div>
-  </section>
+/* Contact form */
+.form-wrap{max-width:700px;margin-top:12px}
+form{display:grid;gap:12px}
+input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px;border-radius:10px;color:inherit;font-size:15px}
+textarea{min-height:120px}
+.form-actions{display:flex;gap:8px}
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Shudhanshu Nidhi. All rights reserved.</p>
-    </div>
-  </footer>
+footer{margin-top:40px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);text-align:center}
 
-</body>
+/* Responsive */
+@media (max-width:880px){
+  .grid{grid-template-columns:1fr}
+  .about{flex-direction:column;align-items:flex-start}
+  .avatar{width:120px;height:120px}
+  h1{font-size:28px}
+}
 
-</html>
+/* Utilities */
+.soft{color:var(--muted)}
+.mb-8{margin-bottom:32px}
+.center{text-align:center}
+
+/* small animation */
+.fade-up{transform:translateY(10px);opacity:0;animation:fadeUp .6s ease forwards}
+@keyframes fadeUp{to{transform:none;opacity:1}}
