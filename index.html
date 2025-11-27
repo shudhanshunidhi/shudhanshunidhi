@@ -1,229 +1,128 @@
---- index.html ---
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Your Name — Personal Website</title>
-    <meta name="description" content="Personal portfolio website for Your Name — projects, about, and contact." />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Voter List Analyzer</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>Voter List Analyzer</h1>
+  <p>Upload voter CSV file (columns: Name, Gender, Caste, Ward)</p>
+  <input type="file" id="csvFile" accept=".csv" />
 
-    <!-- Link to external CSS -->
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <div class="brand">
-          <div class="logo">YN</div>
-          <div>
-            <div class="name">Your Name</div>
-            <div class="soft small">Designer • Developer • Creator</div>
-          </div>
-        </div>
+  <h3>Filters</h3>
+  <label for="genderFilter">Gender:</label>
+  <select id="genderFilter">
+    <option value="All">All</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
+  </select>
 
-        <nav>
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </header>
+  <label for="casteFilter">Caste:</label>
+  <select id="casteFilter">
+    <option value="All">All</option>
+  </select>
 
-      <main>
-        <section class="hero">
-          <div class="hero-inner">
-            <span class="eyebrow">Hi there — welcome</span>
-            <h1>I'm <span class="accent">Your Name</span></h1>
-            <p class="lead">I build beautiful, accessible websites and web apps. I specialize in frontend development, UI/UX, and performance-minded code.</p>
-            <div class="cta">
-              <a class="btn btn-primary" href="#projects">See my work</a>
-              <a class="btn btn-ghost" href="#contact">Get in touch</a>
-            </div>
-          </div>
-        </section>
+  <button onclick="applyFilters()">Apply Filters</button>
 
-        <section id="about" class="mb-8">
-          <div class="about">
-            <div class="avatar">YN</div>
-            <div>
-              <h2>About me</h2>
-              <p class="muted">I'm a web developer with a focus on modern, responsive design and accessible user experiences. I love turning ideas into polished, pixel-perfect interfaces and fast, maintainable code.</p>
+  <h3>Summary Chart</h3>
+  <canvas id="summaryChart" width="600" height="400"></canvas>
 
-              <div class="skills">
-                <div class="tag">HTML</div>
-                <div class="tag">CSS</div>
-                <div class="tag">JavaScript</div>
-                <div class="tag">React</div>
-                <div class="tag">Design Systems</div>
-              </div>
-            </div>
-          </div>
-        </section>
+  <script>
+    let voters = [];
+    let chart;
 
-        <section id="projects" class="mb-8">
-          <h2>Selected projects</h2>
-          <div class="grid">
-            <article class="card">
-              <h3>Project Title — Web app</h3>
-              <p class="muted">Short description: what it does, the problem it solves, and the tech used (React, Node, Postgres).</p>
-              <div class="card-actions">
-                <a class="btn btn-primary" href="#">Live</a>
-                <a class="btn btn-ghost" href="#">Code</a>
-              </div>
-            </article>
+    document.getElementById('csvFile').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
 
-            <article class="card">
-              <h3>Portfolio Website — Static</h3>
-              <p class="muted">A clean, fast personal site focused on accessibility and performance.</p>
-              <div class="card-actions">
-                <a class="btn btn-primary" href="#">Live</a>
-                <a class="btn btn-ghost" href="#">Case study</a>
-              </div>
-            </article>
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const text = event.target.result;
+        parseCSV(text);
+      };
+      reader.readAsText(file);
+    });
 
-            <article class="card">
-              <h3>Design System — UI library</h3>
-              <p class="muted">Reusable components, tokens, and documentation for consistent product UI.</p>
-            </article>
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      const headers = lines[0].split(',');
 
-            <article class="card">
-              <h3>Open-source contribution</h3>
-              <p class="muted">Contributed features and bug fixes to an OSS project used by thousands.</p>
-            </article>
-          </div>
-        </section>
+      voters = lines.slice(1).map(line => {
+        const data = line.split(',');
+        let obj = {};
+        headers.forEach((h, i) => {
+          obj[h.trim()] = data[i].trim();
+        });
+        return obj;
+      });
 
-        <section id="contact">
-          <h2>Contact</h2>
-          <p class="muted">Want to work together or just say hi? Send a message.</p>
-          <div class="form-wrap">
-            <form onsubmit="handleSubmit(event)">
-              <input id="name" placeholder="Your name" required>
-              <input id="email" type="email" placeholder="Your email" required>
-              <textarea id="message" placeholder="Your message" required></textarea>
-              <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Send message</button>
-                <a class="btn btn-ghost" href="mailto:youremail@example.com">Email me</a>
-              </div>
-            </form>
-            <p id="status" class="muted status"></p>
-          </div>
-        </section>
-      </main>
+      populateCasteFilter();
+      applyFilters();
+    }
 
-      <footer>
-        <div class="footer-row">
-          <div class="soft">© <span id="year"></span> Your Name</div>
-          <div class="soft">•</div>
-          <div class="soft"><a href="#projects">Projects</a></div>
-          <div class="soft">•</div>
-          <div class="soft"><a href="#contact">Contact</a></div>
-        </div>
-      </footer>
-    </div>
+    function populateCasteFilter() {
+      const casteSet = new Set(voters.map(v => v.Caste));
+      const casteSelect = document.getElementById('casteFilter');
+      casteSelect.innerHTML = '<option value="All">All</option>';
+      casteSet.forEach(caste => {
+        const option = document.createElement('option');
+        option.value = caste;
+        option.textContent = caste;
+        casteSelect.appendChild(option);
+      });
+    }
 
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
+    function applyFilters() {
+      const genderFilter = document.getElementById('genderFilter').value;
+      const casteFilter = document.getElementById('casteFilter').value;
 
-      function handleSubmit(e){
-        e.preventDefault();
-        var name = document.getElementById('name').value.trim();
-        var email = document.getElementById('email').value.trim();
-        var message = document.getElementById('message').value.trim();
-        var status = document.getElementById('status');
+      let filtered = voters;
 
-        if(!name || !email || !message){ status.textContent = 'Please fill all fields.'; return; }
-
-        var subject = encodeURIComponent('Website contact from ' + name + ' (' + email + ')');
-        var body = encodeURIComponent(message + '\n\n— ' + name + '\n' + email);
-        window.location.href = 'mailto:youremail@example.com?subject='+subject+'&body='+body;
-
-        status.textContent = 'Opening your email client...';
+      if (genderFilter !== 'All') {
+        filtered = filtered.filter(v => v.Gender === genderFilter);
       }
 
-      // Smooth scroll for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(function(a){
-        a.addEventListener('click', function(e){
-          var target = document.querySelector(this.getAttribute('href')); if(!target) return;
-          e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'});
-        });
+      if (casteFilter !== 'All') {
+        filtered = filtered.filter(v => v.Caste === casteFilter);
+      }
+
+      updateChart(filtered);
+    }
+
+    function updateChart(filteredVoters) {
+      // Count voters by ward
+      const wardCounts = {};
+      filteredVoters.forEach(v => {
+        wardCounts[v.Ward] = (wardCounts[v.Ward] || 0) + 1;
       });
-    </script>
 
+      const wards = Object.keys(wardCounts);
+      const counts = wards.map(w => wardCounts[w]);
 
---- styles.css ---
+      if (chart) chart.destroy();
 
-:root{
-  --bg: #0f1724; /* deep navy */
-  --card: #0b1220;
-  --muted: #94a3b8;
-  --accent-from: #60a5fa;
-  --accent-to: #7c3aed;
-  --glass: rgba(255,255,255,0.04);
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-  background:linear-gradient(180deg,var(--bg) 0%, #071025 100%);
-  color:#e6eef8;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:48px;
-}
-a{color:var(--accent-from);text-decoration:none}
-.container{max-width:1100px;margin:0 auto;padding:28px}
-
-/* Header */
-header{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
-.brand{display:flex;gap:12px;align-items:center}
-.logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--accent-from),var(--accent-to));display:inline-grid;place-items:center;font-weight:700;color:#021124}
-nav{display:flex;gap:18px;align-items:center}
-nav a{font-weight:600;color:rgba(230,238,248,0.9)}
-
-/* Hero */
-.hero{display:grid;grid-template-columns:1fr;gap:22px;align-items:center;padding:36px 0}
-.hero-inner{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));padding:36px;border-radius:14px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
-.eyebrow{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.03);font-size:13px;color:var(--muted);margin-bottom:8px}
-h1{font-size:36px;margin:6px 0}
-.lead{color:var(--muted);font-size:17px;margin:12px 0 18px}
-.cta{display:flex;gap:10px}
-.btn{padding:10px 16px;border-radius:12px;font-weight:700;border:0;cursor:pointer}
-.btn-primary{background:linear-gradient(90deg,var(--accent-from),var(--accent-to));color:#021124;text-decoration:none;padding:10px 14px;display:inline-block}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:10px 14px;display:inline-block}
-
-/* Grid for projects */
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.card{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
-.card h3{margin:0 0 8px}
-.muted{color:var(--muted)}
-.card-actions{margin-top:12px;display:flex;gap:8px}
-
-/* About */
-.about{display:flex;gap:28px;align-items:center}
-.avatar{width:160px;height:160px;border-radius:18px;background:linear-gradient(180deg,#1f2937,#0b1220);display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700}
-.skills{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.tag{background:var(--glass);padding:8px 10px;border-radius:10px;font-weight:600;color:var(--muted);font-size:13px}
-
-/* Contact form */
-.form-wrap{max-width:700px;margin-top:12px}
-form{display:grid;gap:12px}
-input,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:12px;border-radius:10px;color:inherit;font-size:15px}
-textarea{min-height:120px}
-.form-actions{display:flex;gap:8px}
-
-footer{margin-top:40px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);text-align:center}
-
-/* Responsive */
-@media (max-width:880px){
-  .grid{grid-template-columns:1fr}
-  .about{flex-direction:column;align-items:flex-start}
-  .avatar{width:120px;height:120px}
-  h1{font-size:28px}
-}
-
-/* Utilities */
-.soft{color:var(--muted)}
-.mb-8{margin-bottom:32px}
-.center{text-align:center}
-
-/* small animation */
-.fade-up{transform:translateY(10px);opacity:0;animation:fadeUp .6s ease forwards}
-@keyframes fadeUp{to{transform:none;opacity:1}}
+      const ctx = document.getElementById('summaryChart').getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: wards,
+          datasets: [{
+            label: 'Number of Voters',
+            data: counts,
+            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true, stepSize: 1 }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
