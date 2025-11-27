@@ -5,61 +5,104 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Voter List Analyzer</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    label {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+    select, input[type="file"], button {
+      margin: 10px 0;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      background: #3498db;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+  </style>
 </head>
 <body>
-  <h1>Voter List Analyzer</h1>
-  <p>Upload voter CSV file (columns: Name, Gender, Caste, Ward)</p>
-  <input type="file" id="csvFile" accept=".csv" />
+  <div class="container">
+    <h1>Voter List Analyzer</h1>
+    <p>Upload voter Excel or PDF file (Excel must contain columns: Name, Gender, Caste, Ward)</p>
 
-  <h3>Filters</h3>
-  <label for="genderFilter">Gender:</label>
-  <select id="genderFilter">
-    <option value="All">All</option>
-    <option value="Male">Male</option>
-    <option value="Female">Female</option>
-  </select>
+    <input type="file" id="fileInput" accept=".xlsx, .xls, .pdf" />
 
-  <label for="casteFilter">Caste:</label>
-  <select id="casteFilter">
-    <option value="All">All</option>
-  </select>
+    <h3>Filters</h3>
+    <label for="genderFilter">Gender:</label>
+    <select id="genderFilter">
+      <option value="All">All</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
 
-  <button onclick="applyFilters()">Apply Filters</button>
+    <label for="casteFilter">Caste:</label>
+    <select id="casteFilter">
+      <option value="All">All</option>
+    </select>
 
-  <h3>Summary Chart</h3>
-  <canvas id="summaryChart" width="600" height="400"></canvas>
+    <button onclick="applyFilters()">Apply Filters</button>
 
+    <h3>Summary Chart</h3>
+    <canvas id="summaryChart" width="600" height="400"></canvas>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script>
     let voters = [];
     let chart;
 
-    document.getElementById('csvFile').addEventListener('change', function(e) {
+    document.getElementById('fileInput').addEventListener('change', function(e) {
       const file = e.target.files[0];
       if (!file) return;
 
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        const text = event.target.result;
-        parseCSV(text);
-      };
-      reader.readAsText(file);
+      const fileType = file.name.split('.').pop().toLowerCase();
+
+      if (fileType === 'xlsx' || fileType === 'xls') {
+        readExcel(file);
+      } else if (fileType === 'pdf') {
+        alert("PDF reading not supported in this demo. Convert to Excel.");
+      } else {
+        alert("Unsupported file type. Please upload Excel or PDF.");
+      }
     });
 
-    function parseCSV(text) {
-      const lines = text.trim().split('\n');
-      const headers = lines[0].split(',');
-
-      voters = lines.slice(1).map(line => {
-        const data = line.split(',');
-        let obj = {};
-        headers.forEach((h, i) => {
-          obj[h.trim()] = data[i].trim();
-        });
-        return obj;
-      });
-
-      populateCasteFilter();
-      applyFilters();
+    function readExcel(file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const json = XLSX.utils.sheet_to_json(sheet);
+        voters = json;
+        populateCasteFilter();
+        applyFilters();
+      };
+      reader.readAsArrayBuffer(file);
     }
 
     function populateCasteFilter() {
@@ -75,27 +118,21 @@
     }
 
     function applyFilters() {
-      const genderFilter = document.getElementById('genderFilter').value;
-      const casteFilter = document.getElementById('casteFilter').value;
+      const gender = document.getElementById('genderFilter').value;
+      const caste = document.getElementById('casteFilter').value;
 
       let filtered = voters;
-
-      if (genderFilter !== 'All') {
-        filtered = filtered.filter(v => v.Gender === genderFilter);
-      }
-
-      if (casteFilter !== 'All') {
-        filtered = filtered.filter(v => v.Caste === casteFilter);
-      }
+      if (gender !== 'All') filtered = filtered.filter(v => v.Gender === gender);
+      if (caste !== 'All') filtered = filtered.filter(v => v.Caste === caste);
 
       updateChart(filtered);
     }
 
     function updateChart(filteredVoters) {
-      // Count voters by ward
       const wardCounts = {};
       filteredVoters.forEach(v => {
-        wardCounts[v.Ward] = (wardCounts[v.Ward] || 0) + 1;
+        const w = v.Ward;
+        wardCounts[w] = (wardCounts[w] || 0) + 1;
       });
 
       const wards = Object.keys(wardCounts);
@@ -110,17 +147,10 @@
           labels: wards,
           datasets: [{
             label: 'Number of Voters',
-            data: counts,
-            backgroundColor: 'rgba(54, 162, 235, 0.7)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
+            data: counts
           }]
         },
-        options: {
-          scales: {
-            y: { beginAtZero: true, stepSize: 1 }
-          }
-        }
+        options: { scales: { y: { beginAtZero: true } } }
       });
     }
   </script>
