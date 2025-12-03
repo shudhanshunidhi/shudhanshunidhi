@@ -44,7 +44,7 @@
       color: #007BFF;
     }
 
-    /* HERO SECTION */
+    /* HERO */
     .hero {
       padding-top: 140px;
       display: flex;
@@ -118,6 +118,38 @@
       animation: fadeInUp 1s ease;
     }
 
+    /* ACHIEVEMENTS GRID BOXES */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .box {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 14px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: 1px solid #e2e2e2;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: 0.3s ease;
+    }
+
+    .box span {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #444;
+    }
+
+    .box:hover {
+      transform: translateY(-6px) scale(1.03);
+      border-color: #007BFF;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
     /* ANIMATIONS */
     @keyframes fadeIn {
       from { opacity: 0; }
@@ -139,27 +171,9 @@
       50% { transform: translateY(-15px); }
     }
 
-    /* CONTACT */
-    .contact-box input,
-    .contact-box textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    .contact-box button {
-      padding: 12px 22px;
-      background: #1e2a38;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-    }
   </style>
 </head>
+
 <body>
 
 <header>
@@ -175,7 +189,7 @@
 <div class="hero">
   <div class="hero-text">
     <h1>Hello, I'm Shudhanshu</h1>
-    <p>Future Civil/Structural Engineer • IYMC Ambassador • Vice-President (Nepal) – CTSC Education • Innovator of Sensor-Based Automatic Street Light implemented in a 6-lane road.</p>
+    <p>Future Civil/Structural Engineer || IYMC Ambassador || ICSC Ambassador || Bronze medalist in ICSC</p>
     <a class="btn-primary" href="#contact">Contact Me</a>
   </div>
 
@@ -185,27 +199,45 @@
 <section id="about">
   <h2 class="section-title">About Me</h2>
   <div class="card">
-    <p>I am Shudhanshu Nidhi, a student from Kathmandu, Nepal, preparing for SAT and applying to MIT and NUS. I have completed my +2 Science from Triton International College. My passion lies in structural engineering and youth development.</p>
+    <p>I’m Shudhanshu Nidhi, a dedicated student from Nepal with a strong passion for civil engineering, innovation, and youth leadership. I’ve participated in international competitions, served as an ambassador for global programs, and worked on engineering projects that create real-world impact. My goal is to build solutions that uplift people and bring meaningful change to my community.</p>
   </div>
 </section>
 
 <section id="achievements">
   <h2 class="section-title">Achievements</h2>
-  <div class="card">IYMC Ambassador – Top 25% World Finalist</div>
-  <div class="card">Vice President (Nepal) – CTSC Education</div>
-  <div class="card">Physics Project Winner • Cricket Champion (U16 + College)</div>
-  <div class="card">Intern – Roshan Construction & Nepali Congress Dhanusha</div>
+
+  <div class="achievements-grid">
+
+    <div class="box">🏆 IYMC Ambassador</div>
+
+    <div class="box">🥉 ICSC Bronze Medalist <br><span>2025</span></div>
+
+    <div class="box">🌍 ICSC Ambassador</div>
+
+    <div class="box">🎓 Vice President (Nepal) <br><span>Cross The Skylimits</span></div>
+
+    <div class="box">⚙️ Physics Project Winner <br><span>Class 12</span></div>
+
+    <div class="box">💡 Street Light Project <br></div>
+
+    <div class="box">👷 Best Intern award <br><span>Roshan Construction</span></div>
+
+    <div class="box">🗳️ Intern <br><span>Nepali Congress (Dhanusha)</span></div>
+
+    <div class="box">🏏 U-16 Cricket Champion <br><span>Wicketkeeper/Batsman </span></div>
+
+  </div>
 </section>
 
 <section id="projects">
   <h2 class="section-title">Projects</h2>
   <div class="card">
     <strong>Sensor-Based Automatic Street Light</strong>
-    <p>Implemented on a 6-lane road by Nagarain Municipality. Uses motion + light sensors for safety & energy saving.</p>
+    <p>Uses motion + light sensors for safety & energy saving.</p>
   </div>
   <div class="card">
     <strong>Youth Development Vision</strong>
-    <p>Plans to empower the youth of Nagarain Municipality through innovation, skill development, internship fairs, and smart infrastructure planning.</p>
+    <p>Plans to empower youth through skill development, innovation programs, internship fairs, and smart infrastructure ideas.</p>
   </div>
 </section>
 
@@ -215,7 +247,7 @@
     <input type="text" placeholder="Your Name" />
     <input type="email" placeholder="Email" />
     <textarea rows="5" placeholder="Message"></textarea>
-    <button onclick="alert('Form submission can be connected to email or backend later.')">Send Message</button>
+    <button onclick="alert('Form connection will be added later.')">Send Message</button>
   </div>
 </section>
 
