@@ -2,157 +2,222 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Voter List Analyzer</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shudhanshu Nidhi | Official Website</title>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      padding: 20px;
-      color: #333;
+      background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
+      color: #1e2a38;
+      overflow-x: hidden;
     }
-    h1 {
-      text-align: center;
-      color: #2c3e50;
+
+    /* HEADER */
+    header {
+      width: 100%;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
-    .container {
-      max-width: 900px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    header nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      font-weight: 500;
+      color: #1e2a38;
+      transition: 0.3s;
     }
-    label {
-      margin-right: 10px;
+    header nav a:hover {
+      color: #007BFF;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      padding-top: 140px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 140px 60px;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .hero-text {
+      max-width: 600px;
+      animation: slideInLeft 1.2s ease;
+    }
+
+    .hero-text h1 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .hero-text p {
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .btn-primary {
+      padding: 12px 24px;
+      background: #1e2a38;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .btn-primary:hover {
+      background: #394a5e;
+    }
+
+    .profile-box {
+      width: 220px;
+      height: 220px;
+      background: linear-gradient(to bottom right, #90caf9, #42a5f5);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
       font-weight: bold;
-    }
-    select, input[type="file"], button {
-      margin: 10px 0;
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
-    button {
-      background: #3498db;
       color: white;
-      cursor: pointer;
+      animation: float 3s infinite ease-in-out;
     }
-    button:hover {
-      background: #2980b9;
+
+    /* SECTIONS */
+    section {
+      padding: 80px 60px;
+    }
+
+    h2.section-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideInLeft {
+      from { transform: translateX(-40px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* CONTACT */
+    .contact-box input,
+    .contact-box textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .contact-box button {
+      padding: 12px 22px;
+      background: #1e2a38;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Voter List Analyzer</h1>
-    <p>Upload voter Excel or PDF file (Excel must contain columns: Name, Gender, Caste, Ward)</p>
 
-    <input type="file" id="fileInput" accept=".xlsx, .xls, .pdf" />
+<header>
+  <h2 style="font-weight: 700;">Shudhanshu Nidhi</h2>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-    <h3>Filters</h3>
-    <label for="genderFilter">Gender:</label>
-    <select id="genderFilter">
-      <option value="All">All</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-    </select>
-
-    <label for="casteFilter">Caste:</label>
-    <select id="casteFilter">
-      <option value="All">All</option>
-    </select>
-
-    <button onclick="applyFilters()">Apply Filters</button>
-
-    <h3>Summary Chart</h3>
-    <canvas id="summaryChart" width="600" height="400"></canvas>
+<div class="hero">
+  <div class="hero-text">
+    <h1>Hello, I'm Shudhanshu</h1>
+    <p>Future Civil/Structural Engineer • IYMC Ambassador • Vice-President (Nepal) – CTSC Education • Innovator of Sensor-Based Automatic Street Light implemented in a 6-lane road.</p>
+    <a class="btn-primary" href="#contact">Contact Me</a>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script>
-    let voters = [];
-    let chart;
+  <div class="profile-box">SN</div>
+</div>
 
-    document.getElementById('fileInput').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (!file) return;
+<section id="about">
+  <h2 class="section-title">About Me</h2>
+  <div class="card">
+    <p>I am Shudhanshu Nidhi, a student from Kathmandu, Nepal, preparing for SAT and applying to MIT and NUS. I have completed my +2 Science from Triton International College. My passion lies in structural engineering and youth development.</p>
+  </div>
+</section>
 
-      const fileType = file.name.split('.').pop().toLowerCase();
+<section id="achievements">
+  <h2 class="section-title">Achievements</h2>
+  <div class="card">IYMC Ambassador – Top 25% World Finalist</div>
+  <div class="card">Vice President (Nepal) – CTSC Education</div>
+  <div class="card">Physics Project Winner • Cricket Champion (U16 + College)</div>
+  <div class="card">Intern – Roshan Construction & Nepali Congress Dhanusha</div>
+</section>
 
-      if (fileType === 'xlsx' || fileType === 'xls') {
-        readExcel(file);
-      } else if (fileType === 'pdf') {
-        alert("PDF reading not supported in this demo. Convert to Excel.");
-      } else {
-        alert("Unsupported file type. Please upload Excel or PDF.");
-      }
-    });
+<section id="projects">
+  <h2 class="section-title">Projects</h2>
+  <div class="card">
+    <strong>Sensor-Based Automatic Street Light</strong>
+    <p>Implemented on a 6-lane road by Nagarain Municipality. Uses motion + light sensors for safety & energy saving.</p>
+  </div>
+  <div class="card">
+    <strong>Youth Development Vision</strong>
+    <p>Plans to empower the youth of Nagarain Municipality through innovation, skill development, internship fairs, and smart infrastructure planning.</p>
+  </div>
+</section>
 
-    function readExcel(file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const data = new Uint8Array(e.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
-        const json = XLSX.utils.sheet_to_json(sheet);
-        voters = json;
-        populateCasteFilter();
-        applyFilters();
-      };
-      reader.readAsArrayBuffer(file);
-    }
+<section id="contact">
+  <h2 class="section-title">Contact Me</h2>
+  <div class="card contact-box">
+    <input type="text" placeholder="Your Name" />
+    <input type="email" placeholder="Email" />
+    <textarea rows="5" placeholder="Message"></textarea>
+    <button onclick="alert('Form submission can be connected to email or backend later.')">Send Message</button>
+  </div>
+</section>
 
-    function populateCasteFilter() {
-      const casteSet = new Set(voters.map(v => v.Caste));
-      const casteSelect = document.getElementById('casteFilter');
-      casteSelect.innerHTML = '<option value="All">All</option>';
-      casteSet.forEach(caste => {
-        const option = document.createElement('option');
-        option.value = caste;
-        option.textContent = caste;
-        casteSelect.appendChild(option);
-      });
-    }
-
-    function applyFilters() {
-      const gender = document.getElementById('genderFilter').value;
-      const caste = document.getElementById('casteFilter').value;
-
-      let filtered = voters;
-      if (gender !== 'All') filtered = filtered.filter(v => v.Gender === gender);
-      if (caste !== 'All') filtered = filtered.filter(v => v.Caste === caste);
-
-      updateChart(filtered);
-    }
-
-    function updateChart(filteredVoters) {
-      const wardCounts = {};
-      filteredVoters.forEach(v => {
-        const w = v.Ward;
-        wardCounts[w] = (wardCounts[w] || 0) + 1;
-      });
-
-      const wards = Object.keys(wardCounts);
-      const counts = wards.map(w => wardCounts[w]);
-
-      if (chart) chart.destroy();
-
-      const ctx = document.getElementById('summaryChart').getContext('2d');
-      chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: wards,
-          datasets: [{
-            label: 'Number of Voters',
-            data: counts
-          }]
-        },
-        options: { scales: { y: { beginAtZero: true } } }
-      });
-    }
-  </script>
 </body>
 </html>
