@@ -4,21 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shudhanshu Nidhi | Official Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
     body {
-      background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
-      color: #1e2a38;
+      background: linear-gradient(to bottom right, #f0f8ff, #e0f7fa);
+      color: #1c1c1c;
       overflow-x: hidden;
     }
 
-    /* HEADER */
     header {
       width: 100%;
       padding: 20px 60px;
@@ -27,75 +27,88 @@
       align-items: center;
       position: fixed;
       top: 0;
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(10px);
       z-index: 1000;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    header h2 {
+      font-weight: 700;
+      font-size: 24px;
+      color: #0077cc;
     }
 
     header nav a {
       margin-left: 25px;
       text-decoration: none;
-      font-weight: 500;
-      color: #1e2a38;
+      font-weight: 600;
+      color: #1c1c1c;
       transition: 0.3s;
     }
     header nav a:hover {
-      color: #007BFF;
+      color: #0077cc;
     }
 
-    /* HERO */
+    /* HERO SECTION */
     .hero {
       padding-top: 140px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 140px 60px;
-      animation: fadeIn 1.2s ease-in-out;
+      animation: fadeIn 1.5s ease-in-out;
     }
 
     .hero-text {
       max-width: 600px;
-      animation: slideInLeft 1.2s ease;
+      animation: slideInLeft 1.5s ease;
     }
 
     .hero-text h1 {
-      font-size: 48px;
+      font-size: 50px;
       font-weight: 800;
+      color: #0077cc;
       margin-bottom: 10px;
     }
 
     .hero-text p {
-      font-size: 17px;
+      font-size: 18px;
       line-height: 1.6;
       margin-bottom: 25px;
+      color: #333;
     }
 
     .btn-primary {
-      padding: 12px 24px;
-      background: #1e2a38;
+      padding: 14px 28px;
+      background: linear-gradient(90deg, #0077cc, #00bcd4);
       color: #fff;
-      border-radius: 8px;
+      border-radius: 12px;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
       transition: 0.3s;
     }
     .btn-primary:hover {
-      background: #394a5e;
+      background: linear-gradient(90deg, #005fa3, #0097a7);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
 
     .profile-box {
       width: 220px;
       height: 220px;
-      background: linear-gradient(to bottom right, #90caf9, #42a5f5);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 50px;
-      font-weight: bold;
-      color: white;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
       animation: float 3s infinite ease-in-out;
+      border: 5px solid #00bcd4;
+    }
+
+    .profile-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     /* SECTIONS */
@@ -104,21 +117,36 @@
     }
 
     h2.section-title {
-      font-size: 32px;
+      font-size: 36px;
       font-weight: 700;
+      color: #0077cc;
       margin-bottom: 25px;
+      position: relative;
+    }
+
+    h2.section-title::after {
+      content: '';
+      width: 60px;
+      height: 4px;
+      background: #00bcd4;
+      display: block;
+      margin-top: 8px;
+      border-radius: 2px;
     }
 
     .card {
       background: white;
       padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      margin-bottom: 20px;
-      animation: fadeInUp 1s ease;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      margin-bottom: 25px;
+      transition: 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.15);
     }
 
-    /* ACHIEVEMENTS GRID BOXES */
     .achievements-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -129,47 +157,60 @@
     .box {
       background: #ffffff;
       padding: 20px;
-      border-radius: 14px;
+      border-radius: 16px;
       text-align: center;
       font-size: 1.1rem;
       font-weight: 600;
       border: 1px solid #e2e2e2;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       transition: 0.3s ease;
     }
 
     .box span {
       font-size: 0.9rem;
       font-weight: 400;
-      color: #444;
+      color: #555;
     }
 
     .box:hover {
-      transform: translateY(-6px) scale(1.03);
-      border-color: #007BFF;
-      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+      transform: translateY(-6px) scale(1.05);
+      border-color: #00bcd4;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    /* CONTACT FORM */
+    .contact-box input,
+    .contact-box textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .contact-box button {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 12px;
+      background: #0077cc;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .contact-box button:hover {
+      background: #005fa3;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
 
     /* ANIMATIONS */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideInLeft {
-      from { transform: translateX(-40px); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    @keyframes fadeInUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideInLeft { from { transform: translateX(-40px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
   </style>
 </head>
@@ -177,7 +218,7 @@
 <body>
 
 <header>
-  <h2 style="font-weight: 700;">Shudhanshu Nidhi</h2>
+  <h2>Shudhanshu Nidhi</h2>
   <nav>
     <a href="#about">About</a>
     <a href="#achievements">Achievements</a>
@@ -189,43 +230,33 @@
 <div class="hero">
   <div class="hero-text">
     <h1>Hello, I'm Shudhanshu</h1>
-    <p>Future Civil/Structural Engineer || IYMC Ambassador || ICSC Ambassador || Bronze medalist in ICSC</p>
+    <p>Future Civil/Structural Engineer || IYMC Ambassador || ICSC Ambassador || Bronze Medalist in ICSC</p>
     <a class="btn-primary" href="#contact">Contact Me</a>
   </div>
-
-  <div class="profile-box">SN</div>
+  <div class="profile-box">
+    <img src="your-photo.jpg" alt="Shudhanshu Nidhi">
+  </div>
 </div>
 
 <section id="about">
   <h2 class="section-title">About Me</h2>
   <div class="card">
-    <p>I’m Shudhanshu Nidhi, a passionate and driven student from Nepal, aspiring to become a civil and structural engineer. With a keen interest in innovation and community development, I’ve participated in international competitions and served as an ambassador for programs like IYMC and ICSC, where I worked to inspire youth and promote global collaboration.Beyond academics, I actively engage in engineering projects, such as my sensor-based automatic street light, which enhances safety and energy efficiency. I also have leadership experience as the Vice President (Nepal) of Cross The Skylimits, contributing to youth skill development and social initiatives. My mission is to combine engineering, leadership, and technology to create meaningful solutions that uplift communities, foster sustainable development, and leave a lasting positive impact.</p>
+    <p> I’m Shudhanshu Nidhi, a passionate and driven student from Nepal, aspiring to become a civil and structural engineer. With a keen interest in innovation and community development, I’ve participated in international competitions and served as an ambassador for programs like IYMC and ICSC, where I worked to inspire youth and promote global collaboration.Beyond academics, I actively engage in engineering projects, such as my sensor-based automatic street light, which enhances safety and energy efficiency. I also have leadership experience as the Vice President (Nepal) of Cross The Skylimits, contributing to youth skill development and social initiatives.My mission is to combine engineering, leadership, and technology to create meaningful solutions that uplift communities, foster sustainable development, and leave a lasting positive impact.</p>
   </div>
 </section>
 
 <section id="achievements">
   <h2 class="section-title">Achievements</h2>
-
   <div class="achievements-grid">
-
     <div class="box">🏆 IYMC Ambassador</div>
-
     <div class="box">🥉 ICSC Bronze Medalist <br><span>2025</span></div>
-
     <div class="box">🌍 ICSC Ambassador</div>
-
     <div class="box">🎓 Vice President (Nepal) <br><span>Cross The Skylimits</span></div>
-
     <div class="box">⚙️ Physics Project Winner <br><span>Class 12</span></div>
-
-    <div class="box">💡 Street Light Project <br></div>
-
-    <div class="box">👷 Best Intern award <br><span>Roshan Construction</span></div>
-
+    <div class="box">💡 Street Light Project</div>
+    <div class="box">👷 Best Intern Award <br><span>Roshan Construction</span></div>
     <div class="box">🗳️ Intern <br><span>Nepali Congress (Dhanusha)</span></div>
-
-    <div class="box">🏏 U-16 Cricket Champion <br><span>Wicketkeeper/Batsman </span></div>
-
+    <div class="box">🏏 U-16 Cricket Champion <br><span>Wicketkeeper/Batsman</span></div>
   </div>
 </section>
 
