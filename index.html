@@ -34,6 +34,7 @@
     color: #fff;
     border: none;
     border-radius: 6px;
+    cursor: pointer;
   }
 </style>
 </head>
@@ -55,52 +56,44 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-// 🔹 ADJUST PHOTO AREA ONLY (according to your frame)
-const photoArea = {
-  x: 200,
-  y: 180,
-  w: 680,
-  h: 680
-};
+// 🔹 Photo area inside frame
+const photoArea = { x: 200, y: 180, w: 680, h: 680 };
 
 let uploadedImg = null;
 
-// 🔹 Load frame
+// 🔹 Load frame image
 const frame = new Image();
 frame.src = "frame.png";
-
-// Show frame immediately
 frame.onload = () => {
-  ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+  generate(); // draw frame initially even if no photo uploaded
 };
 
-// 🔹 Auto-fit image inside frame
+// 🔹 Draw image fitted inside photo area
 function drawFittedImage(img, x, y, w, h) {
   const imgRatio = img.width / img.height;
   const boxRatio = w / h;
-
-  let drawW, drawH, offsetX, offsetY;
+  
+  let drawW = w, drawH = h;
 
   if (imgRatio > boxRatio) {
     drawH = h;
     drawW = h * imgRatio;
-    offsetX = x - (drawW - w) / 2;
-    offsetY = y;
   } else {
     drawW = w;
     drawH = w / imgRatio;
-    offsetX = x;
-    offsetY = y - (drawH - h) / 2;
   }
+
+  const offsetX = x + (w - drawW) / 2;
+  const offsetY = y + (h - drawH) / 2;
 
   ctx.drawImage(img, offsetX, offsetY, drawW, drawH);
 }
 
-// 🔹 Generate everything
+// 🔹 Generate canvas: photo + frame + name
 function generate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw photo inside frame window
+  // Draw uploaded photo inside clipped area
   if (uploadedImg) {
     ctx.save();
     ctx.beginPath();
@@ -110,20 +103,20 @@ function generate() {
     ctx.restore();
   }
 
-  // Draw frame always on top
+  // Draw frame on top
   ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
 
   // Draw name text
-  const name = document.getElementById("name").value;
+  const name = document.getElementById("name").value.trim();
   if (name) {
     ctx.font = "bold 44px Arial";
-    ctx.fillStyle = "#FFD700"; // 🔸 Change text color here
+    ctx.fillStyle = "#FFD700"; // golden text
     ctx.textAlign = "center";
     ctx.fillText(name, canvas.width / 2, 950);
   }
 }
 
-// 🔹 Handle upload
+// 🔹 Handle photo upload
 document.getElementById("photo").addEventListener("change", e => {
   const file = e.target.files[0];
   if (!file) return;
@@ -131,12 +124,12 @@ document.getElementById("photo").addEventListener("change", e => {
   const img = new Image();
   img.onload = () => {
     uploadedImg = img;
-    generate();
+    generate(); // redraw canvas after image is loaded
   };
   img.src = URL.createObjectURL(file);
 });
 
-// 🔹 Download image
+// 🔹 Download final image
 function download() {
   const link = document.createElement("a");
   link.download = "supporter-frame.png";
