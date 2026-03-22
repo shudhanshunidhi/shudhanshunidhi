@@ -1,131 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Create Your Frame</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
-    text-align: center;
-    padding: 10px;
-  }
-  canvas {
-    width: 100%;
-    max-width: 360px;
-    background: #fff;
-    border-radius: 10px;
-    margin-top: 10px;
-  }
-  input, button {
-    width: 90%;
-    padding: 10px;
-    margin: 6px 0;
-    font-size: 16px;
-  }
-  button {
-    background: #1877f2;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shudhanshu Nidhi</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background: #0f172a;
+            color: #f1f5f9;
+        }
+        header {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+        }
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+        }
+        nav {
+            text-align: center;
+            padding: 10px;
+            background: #020617;
+            position: sticky;
+            top: 0;
+        }
+        nav a {
+            color: #38bdf8;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        section {
+            max-width: 900px;
+            margin: auto;
+            padding: 50px 20px;
+        }
+        h2 {
+            color: #38bdf8;
+            margin-bottom: 15px;
+        }
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #020617;
+            color: #94a3b8;
+        }
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #38bdf8;
+            color: #0f172a;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+    </style>
 </head>
-
 <body>
 
-<h3>Upload Photo & Create Frame</h3>
+<header>
+    <h1>Shudhanshu Nidhi</h1>
+    <p>Aspiring Civil Engineer | IYMC Ambassador | Youth Leader</p>
+    <a href="#contact" class="button">Contact Me</a>
+</header>
 
-<input type="file" id="photo" accept="image/*">
-<input type="text" id="name" placeholder="Enter your name">
+<nav>
+    <a href="#about">About</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+</nav>
 
-<canvas id="canvas" width="1080" height="1080"></canvas>
+<section id="about">
+    <h2>About Me</h2>
+    <div class="card">
+        <p>
+            I am Shudhanshu Nidhi, a science student from Kathmandu, Nepal with a strong passion for civil engineering and infrastructure development. Growing up in a construction-oriented family, I developed a deep interest in how systems are built and managed.
+        </p>
+        <p>
+            My goal is to specialize in structural engineering and contribute to modern, efficient, and sustainable infrastructure in Nepal. I am also deeply interested in innovation, digital systems, and solving real-world problems.
+        </p>
+    </div>
+</section>
 
-<button onclick="download()">Download</button>
+<section id="achievements">
+    <h2>Achievements</h2>
+    <div class="card">
+        <ul>
+            <li>Top 25% Finalist – International Youth Math Challenge (IYMC)</li>
+            <li>100/100 – Quantum Computing Course (IIT Roorkee)</li>
+            <li>Winner – Physics Project Presentation (Class 12)</li>
+            <li>U16 District Cricket Player (Wicketkeeper)</li>
+            <li>College Cricket Champion</li>
+        </ul>
+    </div>
+</section>
 
-<script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+<section id="projects">
+    <h2>Projects</h2>
+    <div class="card">
+        <ul>
+            <li>Sensor-Based Automatic Street Light System</li>
+            <li>Research: Why Construction Projects Delay in Nepal</li>
+            <li>Developing Ideas for Digital Civic Platforms</li>
+        </ul>
+    </div>
+</section>
 
-const photoArea = { x: 200, y: 180, w: 680, h: 680 };
+<section id="experience">
+    <h2>Experience</h2>
+    <div class="card">
+        <ul>
+            <li>Internship – Roshan Construction</li>
+            <li>Vice President (Nepal) – CTSC Education Pvt. Ltd.</li>
+            <li>Leadership Roles in School & Clubs</li>
+        </ul>
+    </div>
+</section>
 
-let uploadedImg = null;
+<section id="contact">
+    <h2>Contact</h2>
+    <div class="card">
+        <p>Email: sdhanshu504@gmail.com</p>
+        <p>Phone: +977-9865161236</p>
+    </div>
+</section>
 
-// Load frame
-const frame = new Image();
-frame.crossOrigin = "anonymous";
-frame.src = "frame.png";
-frame.onload = draw;
-
-// Draw fitted image
-function drawImageCover(img, x, y, w, h) {
-  const ir = img.width / img.height;
-  const br = w / h;
-  let dw, dh;
-
-  if (ir > br) {
-    dh = h;
-    dw = h * ir;
-  } else {
-    dw = w;
-    dh = w / ir;
-  }
-
-  const dx = x + (w - dw) / 2;
-  const dy = y + (h - dh) / 2;
-
-  ctx.drawImage(img, dx, dy, dw, dh);
-}
-
-// Main draw
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  if (uploadedImg) {
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(photoArea.x, photoArea.y, photoArea.w, photoArea.h);
-    ctx.clip();
-    drawImageCover(uploadedImg, photoArea.x, photoArea.y, photoArea.w, photoArea.h);
-    ctx.restore();
-  }
-
-  ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
-
-  const name = document.getElementById("name").value;
-  if (name) {
-    ctx.font = "bold 44px Arial";
-    ctx.fillStyle = "#FFD700";
-    ctx.textAlign = "center";
-    ctx.fillText(name, 540, 950);
-  }
-}
-
-// Upload handler
-document.getElementById("photo").addEventListener("change", e => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  const url = URL.createObjectURL(file);
-  const img = new Image();
-  img.onload = () => {
-    uploadedImg = img;
-    draw();
-    URL.revokeObjectURL(url);
-  };
-  img.src = url;
-});
-
-// Download
-function download() {
-  const a = document.createElement("a");
-  a.download = "supporter-frame.png";
-  a.href = canvas.toDataURL("image/png");
-  a.click();
-}
-</script>
+<footer>
+    <p>© 2026 Shudhanshu Nidhi | Built with ambition 🚀</p>
+</footer>
 
 </body>
 </html>
