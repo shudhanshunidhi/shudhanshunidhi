@@ -1,946 +1,341 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SAT Complete Master Trick Sheet</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', sans-serif; background: #0f0f1a; color: #e8e8f0; min-height: 100vh; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepal CEE Syllabus Tracker</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --container-bg: #ffffff;
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --not-touched: #e74c3c;
+            --little-confident: #f1c40f;
+            --fully-confident: #2ecc71;
+            --text-main: #333333;
+        }
 
-  .header {
-    background: linear-gradient(135deg, #0f1a2e 0%, #1a2d4a 40%, #2d1b69 70%, #1a1a3e 100%);
-    padding: 28px 24px 20px; text-align: center;
-    border-bottom: 2px solid #4a3f8a;
-  }
-  .header h1 { font-size: 22px; font-weight: 800; color: #c4b5fd; letter-spacing: 1px; }
-  .header p { color: #a89cd0; font-size: 12px; margin-top: 5px; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
 
-  .section-tabs {
-    display: flex; background: #0d0d1a; border-bottom: 2px solid #2a2a4a;
-    position: sticky; top: 0; z-index: 20;
-  }
-  .section-tab {
-    flex: 1; padding: 12px 8px; text-align: center; cursor: pointer;
-    font-size: 13px; font-weight: 700; color: #6a6a9a;
-    border-bottom: 3px solid transparent; transition: all 0.2s;
-  }
-  .section-tab.active-rw { color: #c4b5fd; border-color: #7c6fd4; background: #13131f; }
-  .section-tab.active-math { color: #6ee7b7; border-color: #10b981; background: #0a1a14; }
-  .section-tab:hover { background: #15151f; }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--container-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-  .domain-tabs {
-    display: flex; flex-wrap: wrap; gap: 6px;
-    padding: 12px 16px; background: #13131f;
-    border-bottom: 1px solid #2a2a4a; position: sticky; top: 42px; z-index: 10;
-  }
-  .tab-btn {
-    padding: 7px 13px; border-radius: 20px; border: 1.5px solid #3a3a6a;
-    background: transparent; color: #a89cd0; cursor: pointer;
-    font-size: 11px; font-weight: 600; transition: all 0.2s;
-  }
-  .tab-btn.active { background: #4a3f8a; border-color: #7c6fd4; color: #fff; }
-  .tab-btn.math-active { background: #065f46; border-color: #10b981; color: #6ee7b7; }
-  .tab-btn:hover:not(.active):not(.math-active) { border-color: #5a5a9a; color: #c4b5fd; }
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
 
-  .super-section { display: none; }
-  .super-section.active { display: block; }
+        p.subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
 
-  .content { padding: 18px; max-width: 900px; margin: 0 auto; }
-  .domain-section { display: none; }
-  .domain-section.active { display: block; }
+        .summary-dashboard {
+            display: flex;
+            justify-content: space-around;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
 
-  .domain-title { font-size: 19px; font-weight: 800; margin-bottom: 5px; display: flex; align-items: center; gap: 10px; }
-  .domain-subtitle { color: #8a80b0; font-size: 12px; margin-bottom: 18px; }
-  .domain-subtitle.math-sub { color: #6a9a8a; }
+        .summary-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-  .lesson-card {
-    background: #1a1a2e; border: 1px solid #2a2a4a;
-    border-radius: 12px; margin-bottom: 12px; overflow: hidden;
-  }
-  .lesson-card.math-card { background: #0f1a14; border-color: #1a3a2a; }
-  .lesson-header {
-    padding: 13px 16px; cursor: pointer;
-    display: flex; justify-content: space-between; align-items: center;
-    transition: background 0.2s;
-  }
-  .lesson-header:hover { background: #20203a; }
-  .math-card .lesson-header:hover { background: #152a1e; }
-  .lesson-name { font-size: 14px; font-weight: 700; }
-  .lesson-tag { font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: 700; letter-spacing: 0.5px; }
-  .tag-easy { background: #1a3a2a; color: #4ade80; border: 1px solid #2a5a3a; }
-  .tag-medium { background: #3a2a1a; color: #fb923c; border: 1px solid #5a3a1a; }
-  .tag-hard { background: #3a1a1a; color: #f87171; border: 1px solid #5a2a2a; }
-  .chevron { font-size: 18px; color: #6a6a9a; transition: transform 0.3s; }
-  .lesson-card.open .chevron { transform: rotate(180deg); }
+        .summary-box span.count {
+            font-size: 24px;
+            font-weight: bold;
+        }
 
-  .lesson-body { display: none; padding: 0 16px 16px; border-top: 1px solid #2a2a4a; }
-  .math-card .lesson-body { border-top-color: #1a3a2a; }
-  .lesson-card.open .lesson-body { display: block; }
+        .count.not-touched { color: var(--not-touched); }
+        .count.little { color: #d35400; } /* Darker yellow/orange for contrast */
+        .count.fully { color: var(--fully-confident); }
 
-  .section { margin-top: 14px; }
-  .section-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; color: #7c6fd4; text-transform: uppercase; margin-bottom: 7px; }
-  .math-card .section-label { color: #10b981; }
+        .subject-section {
+            margin-bottom: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
-  .trick-box {
-    background: #0f1a2e; border-left: 3px solid #4a90d9;
-    border-radius: 0 8px 8px 0; padding: 10px 13px; margin-bottom: 8px;
-    font-size: 13px; line-height: 1.6;
-  }
-  .trick-box.gold { border-color: #f59e0b; background: #1a1500; }
-  .trick-box.red { border-color: #f87171; background: #1a0f0f; }
-  .trick-box.green { border-color: #4ade80; background: #0a1a0f; }
-  .trick-box.teal { border-color: #10b981; background: #061410; }
+        .subject-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            margin: 0;
+        }
 
-  .steps { }
-  .step { display: flex; gap: 10px; margin-bottom: 7px; align-items: flex-start; font-size: 13px; }
-  .step-num {
-    min-width: 22px; height: 22px; border-radius: 50%;
-    background: #4a3f8a; color: #c4b5fd; display: flex;
-    align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 800; margin-top: 1px;
-  }
-  .math-card .step-num { background: #065f46; color: #6ee7b7; }
+        .chapter-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
 
-  .trap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
-  .trap-item { background: #1a0f0f; border: 1px solid #3a1a1a; border-radius: 8px; padding: 9px 11px; font-size: 12px; }
-  .trap-item strong { color: #f87171; display: block; margin-bottom: 3px; }
-  .trap-item.math-trap { background: #0a1a10; border-color: #1a3a1a; }
-  .trap-item.math-trap strong { color: #34d399; }
+        .chapter-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s ease;
+        }
 
-  .keyword-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 5px; }
-  .keyword-table th { background: #20203a; padding: 7px 9px; text-align: left; color: #a89cd0; font-weight: 700; }
-  .math-card .keyword-table th { background: #0d2018; color: #6ee7b7; }
-  .keyword-table td { padding: 6px 9px; border-bottom: 1px solid #2a2a4a; }
-  .math-card .keyword-table td { border-bottom-color: #1a3a2a; }
-  .keyword-table tr:last-child td { border-bottom: none; }
-  .keyword-table .kw { color: #c4b5fd; font-weight: 600; }
-  .math-card .keyword-table .kw { color: #6ee7b7; }
+        .chapter-item:last-child {
+            border-bottom: none;
+        }
 
-  .example-box {
-    background: #12121e; border: 1px dashed #3a3a6a;
-    border-radius: 8px; padding: 11px 13px; font-size: 12px;
-    line-height: 1.8; margin-top: 6px;
-  }
-  .math-card .example-box { background: #0a1a10; border-color: #1a3a2a; }
-  .example-box .wrong { color: #f87171; }
-  .example-box .right { color: #4ade80; }
-  .example-box .label { font-weight: 800; margin-right: 4px; }
+        .chapter-name {
+            font-weight: 500;
+        }
 
-  .formula-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
-  .formula-box {
-    background: #0a1a10; border: 1px solid #1a4a2a;
-    border-radius: 8px; padding: 10px 12px; font-size: 12px;
-  }
-  .formula-box .fname { color: #34d399; font-weight: 700; font-size: 11px; margin-bottom: 4px; }
-  .formula-box .fval { color: #a7f3d0; font-family: 'Courier New', monospace; font-size: 13px; }
+        select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+        }
 
-  .badge { display: inline-block; padding: 2px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; margin-left: 8px; }
-  .badge-q { background: #1a2a3a; color: #60a5fa; border: 1px solid #2a4a6a; }
-  .badge-m { background: #0a2a1a; color: #34d399; border: 1px solid #1a4a2a; }
+        /* Status Colors for Select Dropdown */
+        .status-not-touched { background-color: #fadbd8; color: #c0392b; }
+        .status-little { background-color: #fcf3cf; color: #b9770e; }
+        .status-fully { background-color: #d5f5e3; color: #1e8449; }
 
-  .progress-bar { height: 3px; background: #2a2a4a; border-radius: 2px; margin-bottom: 18px; }
-  .progress-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #7c6fd4, #4a90d9); }
-  .progress-fill.math-fill { background: linear-gradient(90deg, #10b981, #06b6d4); }
-
-  .warn-box {
-    background: #1a1500; border: 1px solid #5a4a00; border-radius: 8px;
-    padding: 10px 13px; font-size: 12px; color: #fbbf24; margin-top: 6px;
-  }
-</style>
+        @media (max-width: 600px) {
+            .chapter-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .summary-dashboard {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>📚 SAT Complete Master Trick Sheet</h1>
-  <p>Reading & Writing + Math · Every domain · Every lesson · Every trick</p>
-</div>
+    <div class="container">
+        <h1>🇳🇵 Nepal CEE Syllabus Tracker</h1>
+        <p class="subtitle">Track your preparation progress for MECEE-UG</p>
 
-<!-- TOP SECTION SWITCHER -->
-<div class="section-tabs">
-  <div class="section-tab active-rw" id="tab-rw" onclick="switchSection('rw')">📖 Reading & Writing</div>
-  <div class="section-tab" id="tab-math" onclick="switchSection('math')">🔢 Math</div>
-</div>
-
-<!-- ===================== R&W SUPER SECTION ===================== -->
-<div class="super-section active" id="ss-rw">
-  <div class="domain-tabs" id="rw-tabs">
-    <button class="tab-btn active" onclick="showDomain('craft','rw-tabs')">🎯 Craft & Structure</button>
-    <button class="tab-btn" onclick="showDomain('info','rw-tabs')">📊 Info & Ideas</button>
-    <button class="tab-btn" onclick="showDomain('expression','rw-tabs')">✍️ Expression of Ideas</button>
-    <button class="tab-btn" onclick="showDomain('grammar','rw-tabs')">⚙️ Standard English</button>
-  </div>
-  <div class="content">
-
-    <!-- CRAFT & STRUCTURE -->
-    <div class="domain-section active" id="craft">
-      <div class="domain-title">🎯 Craft & Structure <span class="badge badge-q">~28% of R&W</span></div>
-      <div class="domain-subtitle">Words in Context · Text Structure · Cross-Text Connections · Purpose · Tone</div>
-      <div class="progress-bar"><div class="progress-fill" style="width:28%"></div></div>
-
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">1. Words in Context (Vocabulary)</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-easy">EASY POINTS</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Core Trick</div>
-            <div class="trick-box gold">⚡ Never use your personal definition. The question says "as used in the passage" — context is everything. Cover the word, predict your own fill-in, then match to choices.</div>
-          </div>
-          <div class="section"><div class="section-label">Method</div>
-            <div class="steps">
-              <div class="step"><div class="step-num">1</div><div>Cover the word — read the sentence and predict a replacement</div></div>
-              <div class="step"><div class="step-num">2</div><div>Match your prediction to choices — don't pick the "fanciest" word</div></div>
-              <div class="step"><div class="step-num">3</div><div>Plug your choice back in — does it sound natural?</div></div>
+        <!-- Progress Summary -->
+        <div class="summary-dashboard">
+            <div class="summary-box">
+                <span class="count not-touched" id="count-not">0</span>
+                <span>Not Touched 🔴</span>
             </div>
-          </div>
-          <div class="section"><div class="section-label">Wrong Answer Traps</div>
-            <div class="trap-grid">
-              <div class="trap-item"><strong>Common Meaning Trap</strong>Most common definition of word — but passage uses it differently</div>
-              <div class="trap-item"><strong>Tone Mismatch</strong>Right concept, wrong positive/negative charge</div>
-              <div class="trap-item"><strong>Synonym Bait</strong>Synonym that fits another context, not this sentence</div>
-              <div class="trap-item"><strong>Related Word</strong>Thematically related but changes the meaning</div>
+            <div class="summary-box">
+                <span class="count little" id="count-little">0</span>
+                <span>Little Confident 🟡</span>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">2. Text Structure & Purpose</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Core Trick</div>
-            <div class="trick-box gold">⚡ PURPOSE = why the author wrote it (argue/describe/analyze). STRUCTURE = how it's organized (problem-solution, claim-evidence). For underlined sentence: what JOB does it do?</div>
-          </div>
-          <div class="section"><div class="section-label">Structure Patterns</div>
-            <table class="keyword-table">
-              <tr><th>Pattern</th><th>Signal Words</th></tr>
-              <tr><td>Claim → Evidence</td><td class="kw">Studies show / For example / In fact</td></tr>
-              <tr><td>Problem → Solution</td><td class="kw">However / To address this / One approach</td></tr>
-              <tr><td>Counterargument → Rebuttal</td><td class="kw">Some argue / Critics claim / Yet / Nevertheless</td></tr>
-              <tr><td>Comparison</td><td class="kw">Similarly / In contrast / While / Unlike</td></tr>
-            </table>
-          </div>
-          <div class="section"><div class="section-label">Wrong Answer Traps</div>
-            <div class="trap-grid">
-              <div class="trap-item"><strong>Too Broad</strong>"Discusses science" — misses actual purpose</div>
-              <div class="trap-item"><strong>Wrong Verb</strong>"Argues" vs "describes" — does author take a stance?</div>
+            <div class="summary-box">
+                <span class="count fully" id="count-fully">0</span>
+                <span>Fully Confident 🟢</span>
             </div>
-          </div>
         </div>
-      </div>
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">3. Tone, Attitude & Perspective</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Core Trick</div>
-            <div class="trick-box gold">⚡ Read adjectives and adverbs — they carry tone. "Alarming" = concerned. "Remarkable" = impressed. Map those words to answer choices.</div>
-          </div>
-          <div class="section"><div class="section-label">Tone Word Bank</div>
-            <table class="keyword-table">
-              <tr><th>Passage Signals</th><th>Correct Tone Word</th></tr>
-              <tr><td>Warnings, urgent language, "must," "danger"</td><td class="kw">alarmed / concerned</td></tr>
-              <tr><td>Balanced, "on one hand... on the other"</td><td class="kw">objective / measured</td></tr>
-              <tr><td>Questions mainstream view, pushes back</td><td class="kw">skeptical / critical</td></tr>
-              <tr><td>Explores complexity, no clear verdict</td><td class="kw">nuanced / analytical</td></tr>
-              <tr><td>Dry facts, no emotion</td><td class="kw">neutral / detached</td></tr>
-            </table>
-          </div>
-          <div class="trick-box red">❌ Don't confuse subject's tone with author's tone. Author describing an angry character can still be calm and analytical.</div>
-        </div>
-      </div>
-
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">4. Cross-Text Connections (Paired Passages)</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-hard">HARDEST</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Method</div>
-            <div class="steps">
-              <div class="step"><div class="step-num">1</div><div>Summarize each text in 1 sentence: "Text 1 says ___ about ___"</div></div>
-              <div class="step"><div class="step-num">2</div><div>For "how would A respond to B" → find A's position first, test each choice against it</div></div>
-              <div class="step"><div class="step-num">3</div><div>Answers must be grounded in what's in the text — not your inference</div></div>
-            </div>
-          </div>
-          <div class="section"><div class="section-label">Golden Rule</div>
-            <div class="trick-box gold">⚡ If Author A never mentioned the topic — you can't infer their response. Eliminate anything A would be neutral on. The answer must come from A's actual words.</div>
-          </div>
-        </div>
-      </div>
+        <!-- Subjects Container -->
+        <div id="syllabus-container"></div>
     </div>
 
-    <!-- INFO & IDEAS -->
-    <div class="domain-section" id="info">
-      <div class="domain-title">📊 Information & Ideas <span class="badge badge-q">~26% of R&W</span></div>
-      <div class="domain-subtitle">Central Ideas · Details · Command of Evidence · Inferences</div>
-      <div class="progress-bar"><div class="progress-fill" style="width:26%"></div></div>
+    <script>
+        // Nepal CEE (MECEE-UG) Standard Syllabus Data
+        const ceeSyllabus = [
+            {
+                subject: "Physics",
+                chapters: [
+                    "Mechanics",
+                    "Heat & Thermodynamics",
+                    "Geometrical Optics & Physical Optics",
+                    "Acoustics (Sound Waves)",
+                    "Current Electricity & Magnetism",
+                    "Modern Physics & Electronics"
+                ]
+            },
+            {
+                subject: "Chemistry",
+                chapters: [
+                    "Language of Chemistry & Atomic Structure",
+                    "States of Matter & Thermodynamics",
+                    "Chemical Kinetics & Equilibrium",
+                    "Inorganic Chemistry (Metals & Non-metals)",
+                    "Basic Concepts of Organic Chemistry",
+                    "Hydrocarbons & Halocalkanes",
+                    "Alcohols, Phenols & Ethers",
+                    "Aldehydes, Ketones & Carboxylic Acids"
+                ]
+            },
+            {
+                subject: "Zoology",
+                chapters: [
+                    "Biology & Diversity of Microbes",
+                    "Animal Tissues & Anatomy",
+                    "Human Physiology (Digestion, Respiration, Circulation)",
+                    "Human Physiology (Excretion, Nervous, Endocrine)",
+                    "Human Reproduction & Development",
+                    "Genetics & Evolution",
+                    "Ecology & Environment"
+                ]
+            },
+            {
+                subject: "Botany",
+                chapters: [
+                    "Plant Anatomy & Physiology",
+                    "Plant Diversity (Algae, Fungi, Bryophytes, Pteridophytes)",
+                    "Gymnosperms & Angiosperms",
+                    "Plant Reproduction",
+                    "Genetics & Plant Breeding"
+                ]
+            },
+            {
+                subject: "MAT (Mental Agility Test)",
+                chapters: [
+                    "Numerical Reasoning",
+                    "Logical Sequencing",
+                    "Spatial Relation",
+                    "Abstract Reasoning"
+                ]
+            }
+        ];
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">5. Central Ideas & Details</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-easy">EASY POINTS</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ Central idea = the ONE claim all paragraphs support. It's not first/last sentence. Ask: "What is everything in this text trying to prove?"</div>
-          <div class="section"><div class="section-label">Detail Questions</div>
-            <div class="trick-box red">❌ "According to the text" = go back and FIND the exact line. Never answer from memory.</div>
-          </div>
-          <div class="section"><div class="section-label">Eliminate If...</div>
-            <div class="trap-grid">
-              <div class="trap-item"><strong>Too Specific</strong>Only one paragraph supports it</div>
-              <div class="trap-item"><strong>Too Broad</strong>Goes beyond what the text actually says</div>
-            </div>
-          </div>
-        </div>
-      </div>
+        // Load saved progress from LocalStorage or initialize empty object
+        let userProgress = JSON.parse(localStorage.getItem('ceeProgress')) || {};
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">6. Command of Evidence — Textual</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ Underline the EXACT claim. Test each answer: does it DIRECTLY prove/disprove that specific claim? Related ≠ relevant. Partial match = wrong.</div>
-          <div class="section"><div class="section-label">Illustrates (Literary) Questions</div>
-            <div class="steps">
-              <div class="step"><div class="step-num">1</div><div>Quote must SHOW the claim — not summarize it</div></div>
-              <div class="step"><div class="step-num">2</div><div>Specific concrete action > general statements</div></div>
-              <div class="step"><div class="step-num">3</div><div>Two quotes both work? → Pick the one matching claim language most closely</div></div>
-            </div>
-          </div>
-          <div class="section"><div class="section-label">Weakener Trick</div>
-            <div class="trick-box red">Right answer creates DIRECT contradiction. If claim: "X causes Y" → weakener shows "X without Y" or "Y without X."</div>
-          </div>
-        </div>
-      </div>
+        const container = document.getElementById('syllabus-container');
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">7. Command of Evidence — Quantitative (Charts)</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ Read graph TITLE, AXES, LEGEND before data. 80% of wrong answers = misreading what the chart is actually measuring.</div>
-          <div class="section"><div class="section-label">Graph Traps</div>
-            <table class="keyword-table">
-              <tr><th>Trap</th><th>How to Avoid</th></tr>
-              <tr><td>Correlation ≠ causation</td><td class="kw">Both went up ≠ one caused the other</td></tr>
-              <tr><td>Wrong time period</td><td class="kw">Check x-axis range carefully</td></tr>
-              <tr><td>Wrong group</td><td class="kw">Check legend — right line/bar?</td></tr>
-              <tr><td>% vs absolute numbers</td><td class="kw">Higher % ≠ higher total if group sizes differ</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
+        // Function to render the syllabus to the screen
+        function renderSyllabus() {
+            container.innerHTML = ''; // Clear container
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">8. Inferences</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-hard">HARDEST</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ SAT inferences are TINY steps — almost directly stated. If an answer requires 2+ logical steps, it's wrong. Ask "Must this be true?" not "Could this be true?"</div>
-          <div class="section"><div class="section-label">Wrong Answer Patterns</div>
-            <div class="trap-grid">
-              <div class="trap-item"><strong>Too Far</strong>Logical but requires outside knowledge</div>
-              <div class="trap-item"><strong>Common Sense</strong>Obvious in real life but text doesn't say it</div>
-              <div class="trap-item"><strong>Extreme Language</strong>"Always," "never" — text rarely supports absolutes</div>
-              <div class="trap-item"><strong>Opposite</strong>Plausible but contradicts what text implies</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            ceeSyllabus.forEach((subjectObj, subjectIndex) => {
+                // Create Subject Section
+                const section = document.createElement('div');
+                section.className = 'subject-section';
+                
+                // Subject Header
+                const header = document.createElement('h2');
+                header.className = 'subject-header';
+                header.innerText = subjectObj.subject;
+                section.appendChild(header);
 
-    <!-- EXPRESSION OF IDEAS -->
-    <div class="domain-section" id="expression">
-      <div class="domain-title">✍️ Expression of Ideas <span class="badge badge-q">~20% of R&W</span></div>
-      <div class="domain-subtitle">Rhetorical Synthesis · Transitions</div>
-      <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
+                // Chapter List
+                const list = document.createElement('ul');
+                list.className = 'chapter-list';
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">9. Rhetorical Synthesis</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ Read the GOAL first. Then find the answer that does that specific thing — not just one that uses the notes accurately. Accurate ≠ correct for this purpose.</div>
-          <div class="section"><div class="section-label">Goals & What to Look For</div>
-            <table class="keyword-table">
-              <tr><th>Goal</th><th>Right Answer Has...</th></tr>
-              <tr><td>"Introduce to general audience"</td><td class="kw">Simple language, broad framing, no jargon</td></tr>
-              <tr><td>"Emphasize a contrast"</td><td class="kw">Contrast word (while/whereas/but) + two things</td></tr>
-              <tr><td>"Support with data"</td><td class="kw">Specific number or stat from notes</td></tr>
-              <tr><td>"Explain cause-effect"</td><td class="kw">Because/therefore linking two facts</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
+                subjectObj.chapters.forEach((chapter, chapterIndex) => {
+                    const uniqueId = `sub_${subjectIndex}_chap_${chapterIndex}`;
+                    const currentStatus = userProgress[uniqueId] || 'not-touched';
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">10. Transitions</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-easy">EASY POINTS</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ Ignore content. Ask: what is the LOGICAL RELATIONSHIP between sentence before and after the blank? Then pick the transition that matches that relationship.</div>
-          <div class="section"><div class="section-label">Master Table</div>
-            <table class="keyword-table">
-              <tr><th>Relationship</th><th>Transition Words</th></tr>
-              <tr><td>Addition</td><td class="kw">Furthermore, Moreover, Additionally, Also</td></tr>
-              <tr><td>Contrast</td><td class="kw">However, Nevertheless, Yet, Despite, In contrast</td></tr>
-              <tr><td>Cause & Effect</td><td class="kw">Therefore, Thus, As a result, Consequently</td></tr>
-              <tr><td>Example</td><td class="kw">For example, For instance, Specifically</td></tr>
-              <tr><td>Concession</td><td class="kw">Admittedly, Of course, While it is true</td></tr>
-              <tr><td>Emphasis</td><td class="kw">Indeed, In fact, Notably, Above all</td></tr>
-              <tr><td>Summary</td><td class="kw">In short, Overall, Ultimately</td></tr>
-            </table>
-          </div>
-          <div class="trick-box red">❌ "However" in a sentence with NO contrast = WRONG. Match relationship first, word second.</div>
-        </div>
-      </div>
-    </div>
+                    const listItem = document.createElement('li');
+                    listItem.className = 'chapter-item';
 
-    <!-- STANDARD ENGLISH -->
-    <div class="domain-section" id="grammar">
-      <div class="domain-title">⚙️ Standard English Conventions <span class="badge badge-q">~26% of R&W</span></div>
-      <div class="domain-subtitle">Punctuation · Sentence Structure · Form/Function/Tense</div>
-      <div class="progress-bar"><div class="progress-fill" style="width:26%"></div></div>
+                    const chapterName = document.createElement('span');
+                    chapterName.className = 'chapter-name';
+                    chapterName.innerText = chapter;
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">11. Sentence Boundaries (Fragments & Run-ons)</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ Two complete sentences cannot be joined with just a comma (comma splice). Need: period / semicolon / [comma + FANBOYS: For And Nor But Or Yet So].</div>
-          <div class="section"><div class="section-label">Quick Fix Chart</div>
-            <table class="keyword-table">
-              <tr><th>Situation</th><th>Correct Fix</th></tr>
-              <tr><td>Two independent clauses</td><td class="kw">Period / Semicolon / comma + FANBOYS</td></tr>
-              <tr><td>Dependent clause first</td><td class="kw">Comma after the dependent clause</td></tr>
-              <tr><td>Long intro phrase</td><td class="kw">Comma after the phrase</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
+                    // Dropdown for confidence level
+                    const select = document.createElement('select');
+                    select.className = getStatusClass(currentStatus);
+                    
+                    const options = [
+                        { value: 'not-touched', text: '🔴 Not Touched' },
+                        { value: 'little', text: '🟡 Little Confident' },
+                        { value: 'fully', text: '🟢 Fully Confident' }
+                    ];
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">12. Punctuation (Commas, Semicolons, Colons, Dashes)</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-hard">HARDEST</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">The 4 Comma Rules That Matter</div>
-            <table class="keyword-table">
-              <tr><th>Use comma to...</th><th>Pattern</th></tr>
-              <tr><td>Join independent clauses + FANBOYS</td><td class="kw">..., but ...</td></tr>
-              <tr><td>Set off nonessential info</td><td class="kw">The dog, which was old, ...</td></tr>
-              <tr><td>After intro phrase/clause</td><td class="kw">After eating, she left.</td></tr>
-              <tr><td>Separate list items</td><td class="kw">red, blue, and green</td></tr>
-            </table>
-            <div class="trick-box red">❌ NO comma between subject and verb. "The dog, barked" = WRONG.</div>
-          </div>
-          <div class="section"><div class="section-label">Semicolon · Colon · Dash Rules</div>
-            <table class="keyword-table">
-              <tr><th>Mark</th><th>Rule</th></tr>
-              <tr><td>Semicolon ( ; )</td><td class="kw">Only between two INDEPENDENT clauses. Like a period.</td></tr>
-              <tr><td>Colon ( : )</td><td class="kw">After independent clause → list, explanation, example</td></tr>
-              <tr><td>Dash ( — )</td><td class="kw">Sets off extra info. Pair of dashes = pair of commas.</td></tr>
-            </table>
-          </div>
-          <div class="section"><div class="section-label">Essential vs Non-Essential Test</div>
-            <div class="trick-box gold">⚡ Remove the phrase. If sentence still makes sense AND meaning unchanged → non-essential → needs commas. If removing it breaks meaning → essential → NO commas.</div>
-          </div>
-        </div>
-      </div>
+                    options.forEach(opt => {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = opt.value;
+                        optionElement.innerText = opt.text;
+                        if (opt.value === currentStatus) optionElement.selected = true;
+                        select.appendChild(optionElement);
+                    });
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">13. Subject-Verb Agreement</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ Cross out everything between subject and verb (prepositional phrases, relative clauses). Then check agreement with what remains.</div>
-          <div class="section"><div class="section-label">Tricky Patterns</div>
-            <table class="keyword-table">
-              <tr><th>Subject Type</th><th>Verb Is...</th></tr>
-              <tr><td>Everyone, anyone, nobody, each</td><td class="kw">Singular</td></tr>
-              <tr><td>Neither...nor / Either...or</td><td class="kw">Matches CLOSER subject</td></tr>
-              <tr><td>Collective noun (team, group)</td><td class="kw">Usually singular</td></tr>
-              <tr><td>There is/are...</td><td class="kw">Match verb to noun AFTER it</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
+                    // Event Listener when user changes status
+                    select.addEventListener('change', function(e) {
+                        const newStatus = e.target.value;
+                        userProgress[uniqueId] = newStatus;
+                        select.className = getStatusClass(newStatus); // Update color
+                        saveProgress();
+                        updateDashboard();
+                    });
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">14. Pronoun Agreement & Reference</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-easy">EASY POINTS</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ Every pronoun must have a clear, unambiguous antecedent. Can't immediately tell what "it" or "they" refers to? → Wrong sentence.</div>
-          <div class="section"><div class="section-label">Key Rules</div>
-            <table class="keyword-table">
-              <tr><th>Rule</th><th>Example</th></tr>
-              <tr><td>Singular antecedent</td><td class="kw">The company raised its prices (not their)</td></tr>
-              <tr><td>Everyone/anyone → singular</td><td class="kw">Everyone must bring his or her ID</td></tr>
-              <tr><td>Ambiguous reference</td><td class="kw">"When Tom met Sam, he was nervous" → who is "he"?</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
+                    listItem.appendChild(chapterName);
+                    listItem.appendChild(select);
+                    list.appendChild(listItem);
+                });
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">15. Verb Tense & Mood</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ Find other verbs in passage — tense must be CONSISTENT unless time shift is signaled ("previously," "by the time," "since then").</div>
-          <div class="section"><div class="section-label">Subjunctive Mood</div>
-            <div class="trick-box">After "suggest," "recommend," "require," "demand" → use BASE form.<br>"The doctor recommends that he <strong>take</strong> (not takes) medication."</div>
-          </div>
-        </div>
-      </div>
+                section.appendChild(list);
+                container.appendChild(section);
+            });
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">16. Modifiers (Misplaced & Dangling)</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-hard">HARDEST</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ Introductory phrase must be IMMEDIATELY followed by what it describes. Subject right after the comma = who/what the phrase is about.</div>
-          <div class="example-box">
-            <span class="label wrong">❌</span> "Having studied all night, the test was easy." (test didn't study)<br>
-            <span class="label right">✓</span> "Having studied all night, she found the test easy."
-          </div>
-        </div>
-      </div>
+            updateDashboard();
+        }
 
-      <div class="lesson-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">17. Parallel Structure</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-easy">EASY POINTS</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box gold">⚡ Items in a list or comparison must be in the same grammatical form. Find the first item's form → make everything match.</div>
-          <div class="example-box">
-            <span class="label wrong">❌</span> She likes running, swimming, and to cycle.<br>
-            <span class="label right">✓</span> She likes running, swimming, and cycling.
-          </div>
-          <div class="trick-box">Correlatives: both X <em>and</em> Y / either X <em>or</em> Y / not only X <em>but also</em> Y → X and Y must be same form.</div>
-        </div>
-      </div>
-    </div>
+        // Helper function to assign CSS classes based on status
+        function getStatusClass(status) {
+            if (status === 'not-touched') return 'status-not-touched';
+            if (status === 'little') return 'status-little';
+            if (status === 'fully') return 'status-fully';
+            return '';
+        }
 
-  </div><!-- end rw content -->
-</div><!-- end ss-rw -->
+        // Save progress to Browser's Local Storage
+        function saveProgress() {
+            localStorage.setItem('ceeProgress', JSON.stringify(userProgress));
+        }
 
+        // Calculate and update the numbers at the top of the page
+        function updateDashboard() {
+            let notTouched = 0;
+            let little = 0;
+            let fully = 0;
+            
+            // Calculate total chapters
+            const totalChapters = ceeSyllabus.reduce((acc, curr) => acc + curr.chapters.length, 0);
 
-<!-- ===================== MATH SUPER SECTION ===================== -->
-<div class="super-section" id="ss-math">
-  <div class="domain-tabs" id="math-tabs">
-    <button class="tab-btn math-active" onclick="showMathDomain('algebra')">🔣 Algebra</button>
-    <button class="tab-btn" onclick="showMathDomain('advanced')">🧮 Advanced Math</button>
-    <button class="tab-btn" onclick="showMathDomain('psdq')">📐 Problem Solving & Data</button>
-    <button class="tab-btn" onclick="showMathDomain('geometry')">📏 Geometry & Trig</button>
-  </div>
-  <div class="content">
+            // Count based on saved progress
+            Object.values(userProgress).forEach(status => {
+                if (status === 'not-touched') notTouched++;
+                if (status === 'little') little++;
+                if (status === 'fully') fully++;
+            });
 
-    <!-- ALGEBRA -->
-    <div class="domain-section active" id="algebra">
-      <div class="domain-title">🔣 Algebra <span class="badge badge-m">~35% of Math</span></div>
-      <div class="domain-subtitle math-sub">Linear Equations · Systems · Inequalities · Functions · Word Problems</div>
-      <div class="progress-bar"><div class="progress-fill math-fill" style="width:35%"></div></div>
+            // If a chapter isn't in userProgress yet, it means it's 'not-touched'
+            const unrecorded = totalChapters - (notTouched + little + fully);
+            notTouched += unrecorded;
 
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M1. Linear Equations (One Variable)</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-easy">EASY POINTS</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Core Tricks</div>
-            <div class="trick-box teal">⚡ If the equation looks complicated — plug in answer choices. Start with B or C (middle values) to narrow down faster.</div>
-            <div class="trick-box teal">⚡ For "no solution" → make both sides identical except constants (coefficients match, constants don't). For "infinite solutions" → make both sides identical entirely.</div>
-          </div>
-          <div class="section"><div class="section-label">Word Problem Translation</div>
-            <table class="keyword-table">
-              <tr><th>Word</th><th>Math Symbol</th></tr>
-              <tr><td>is / was / equals / gives</td><td class="kw">=</td></tr>
-              <tr><td>more than / increased by</td><td class="kw">+</td></tr>
-              <tr><td>less than / decreased by / fewer</td><td class="kw">−</td></tr>
-              <tr><td>of / times / product</td><td class="kw">×</td></tr>
-              <tr><td>per / for each / ratio</td><td class="kw">÷</td></tr>
-              <tr><td>at least / minimum / no less than</td><td class="kw">≥</td></tr>
-              <tr><td>at most / maximum / no more than</td><td class="kw">≤</td></tr>
-            </table>
-          </div>
-          <div class="section"><div class="section-label">No Solution / Infinite Solutions Trick</div>
-            <div class="example-box">
-              ax + b = cx + d<br>
-              <span class="right">No solution:</span> a = c, but b ≠ d (parallel lines)<br>
-              <span class="right">Infinite solutions:</span> a = c AND b = d (same line)
-            </div>
-          </div>
-        </div>
-      </div>
+            document.getElementById('count-not').innerText = notTouched;
+            document.getElementById('count-little').innerText = little;
+            document.getElementById('count-fully').innerText = fully;
+        }
 
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M2. Linear Functions & Graphs (y = mx + b)</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-easy">EASY POINTS</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Key Formulas</div>
-            <div class="formula-grid">
-              <div class="formula-box"><div class="fname">Slope-Intercept</div><div class="fval">y = mx + b</div></div>
-              <div class="formula-box"><div class="fname">Slope Formula</div><div class="fval">m = (y₂−y₁)/(x₂−x₁)</div></div>
-              <div class="formula-box"><div class="fname">Point-Slope</div><div class="fval">y − y₁ = m(x − x₁)</div></div>
-              <div class="formula-box"><div class="fname">Standard Form</div><div class="fval">Ax + By = C</div></div>
-            </div>
-          </div>
-          <div class="section"><div class="section-label">Graph Reading Tricks</div>
-            <div class="trick-box teal">⚡ Slope = rate of change. y-intercept = starting value (when x=0). Always check units on axes — slope has units of (y-unit / x-unit).</div>
-            <div class="trick-box teal">⚡ Parallel lines: same slope, different intercept. Perpendicular lines: slopes are negative reciprocals (m₁ × m₂ = −1).</div>
-          </div>
-          <div class="section"><div class="section-label">Context Interpretation</div>
-            <table class="keyword-table">
-              <tr><th>If question asks...</th><th>Find...</th></tr>
-              <tr><td>"Initial value / starting amount"</td><td class="kw">y-intercept (b)</td></tr>
-              <tr><td>"Rate of change / per unit"</td><td class="kw">slope (m)</td></tr>
-              <tr><td>"When does it reach zero?"</td><td class="kw">x-intercept (set y=0, solve)</td></tr>
-              <tr><td>"When are they equal?"</td><td class="kw">Set equations equal, solve for x</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
+        // Initialize App
+        renderSyllabus();
 
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M3. Systems of Linear Equations</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">3 Methods — When to Use Each</div>
-            <table class="keyword-table">
-              <tr><th>Method</th><th>Use When...</th></tr>
-              <tr><td>Substitution</td><td class="kw">One variable is already isolated (x = ... or y = ...)</td></tr>
-              <tr><td>Elimination</td><td class="kw">Coefficients can be matched by multiplying — fastest for SAT</td></tr>
-              <tr><td>Graphing</td><td class="kw">Question gives you graphs or asks for intersection point</td></tr>
-            </table>
-          </div>
-          <div class="section"><div class="section-label">Elimination Trick</div>
-            <div class="trick-box teal">⚡ If question asks for x + y (not x or y separately) — try adding or subtracting equations directly. You might get x + y without solving individually.</div>
-            <div class="example-box">
-              3x + 2y = 14<br>x + 2y = 6<br>
-              Subtract → 2x = 8 → x = 4. Or add if signs work out.
-            </div>
-          </div>
-          <div class="section"><div class="section-label">Number of Solutions</div>
-            <div class="trap-grid">
-              <div class="trap-item math-trap"><strong>One solution</strong>Lines intersect → different slopes</div>
-              <div class="trap-item math-trap"><strong>No solution</strong>Parallel lines → same slope, different intercepts</div>
-              <div class="trap-item math-trap"><strong>Infinite solutions</strong>Same line → one equation is a multiple of the other</div>
-              <div class="trap-item math-trap"><strong>SAT Trick</strong>For no solution: set up ratio of coefficients equal, constants unequal</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M4. Linear Inequalities</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="trick-box teal">⚡ FLIP the inequality sign when multiplying or dividing by a NEGATIVE number. This is the #1 source of errors.</div>
-          <div class="section"><div class="section-label">Graph Interpretation</div>
-            <table class="keyword-table">
-              <tr><th>On Graph</th><th>Means</th></tr>
-              <tr><td>Solid line</td><td class="kw">≤ or ≥ (includes the line)</td></tr>
-              <tr><td>Dashed line</td><td class="kw">&lt; or &gt; (excludes the line)</td></tr>
-              <tr><td>Shading above line</td><td class="kw">y &gt; or y ≥ (greater than)</td></tr>
-              <tr><td>Shading below line</td><td class="kw">y &lt; or y ≤ (less than)</td></tr>
-            </table>
-          </div>
-          <div class="trick-box teal">⚡ For systems of inequalities on a graph — the solution is the overlapping shaded region. Test a point in that region to verify.</div>
-        </div>
-      </div>
-
-    </div><!-- end algebra -->
-
-    <!-- ADVANCED MATH -->
-    <div class="domain-section" id="advanced">
-      <div class="domain-title">🧮 Advanced Math <span class="badge badge-m">~35% of Math</span></div>
-      <div class="domain-subtitle math-sub">Quadratics · Polynomials · Exponentials · Functions · Radicals · Rational Expressions</div>
-      <div class="progress-bar"><div class="progress-fill math-fill" style="width:35%"></div></div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M5. Quadratic Equations & Parabolas</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-hard">HARDEST</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Key Formulas</div>
-            <div class="formula-grid">
-              <div class="formula-box"><div class="fname">Quadratic Formula</div><div class="fval">x = (−b ± √(b²−4ac)) / 2a</div></div>
-              <div class="formula-box"><div class="fname">Discriminant</div><div class="fval">b² − 4ac</div></div>
-              <div class="formula-box"><div class="fname">Vertex Form</div><div class="fval">y = a(x−h)² + k</div></div>
-              <div class="formula-box"><div class="fname">Standard Form</div><div class="fval">y = ax² + bx + c</div></div>
-            </div>
-          </div>
-          <div class="section"><div class="section-label">Discriminant Decision Tree</div>
-            <table class="keyword-table">
-              <tr><th>b²−4ac value</th><th>Number of real solutions</th></tr>
-              <tr><td>Positive (&gt; 0)</td><td class="kw">2 real solutions (parabola crosses x-axis twice)</td></tr>
-              <tr><td>Zero (= 0)</td><td class="kw">1 real solution (parabola touches x-axis once)</td></tr>
-              <tr><td>Negative (&lt; 0)</td><td class="kw">No real solutions (parabola doesn't cross x-axis)</td></tr>
-            </table>
-          </div>
-          <div class="section"><div class="section-label">Vertex & Parabola Tricks</div>
-            <div class="trick-box teal">⚡ Vertex x-coordinate = −b/2a. Vertex form y=a(x−h)²+k → vertex is (h, k). If a&gt;0 → opens up (min). If a&lt;0 → opens down (max).</div>
-            <div class="trick-box teal">⚡ Factoring shortcut: if ax²+bx+c → find two numbers that multiply to ac and add to b. Faster than quadratic formula for clean numbers.</div>
-          </div>
-          <div class="section"><div class="section-label">FOIL & Factoring Patterns</div>
-            <div class="formula-grid">
-              <div class="formula-box"><div class="fname">Difference of squares</div><div class="fval">a²−b² = (a+b)(a−b)</div></div>
-              <div class="formula-box"><div class="fname">Perfect square</div><div class="fval">(a+b)² = a²+2ab+b²</div></div>
-              <div class="formula-box"><div class="fname">Sum of cubes</div><div class="fval">a³+b³ = (a+b)(a²−ab+b²)</div></div>
-              <div class="formula-box"><div class="fname">Completing square</div><div class="fval">Add (b/2)² to both sides</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M6. Functions — Notation, Transformations, Composition</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Core Tricks</div>
-            <div class="trick-box teal">⚡ f(x) just means "plug x in." f(3) = replace every x with 3. f(x+1) = replace every x with (x+1).</div>
-            <div class="trick-box teal">⚡ f(g(x)) = composite function. Work from inside out: evaluate g(x) first, then plug that result into f.</div>
-          </div>
-          <div class="section"><div class="section-label">Transformation Rules</div>
-            <table class="keyword-table">
-              <tr><th>Change to f(x)</th><th>Effect on Graph</th></tr>
-              <tr><td>f(x) + k</td><td class="kw">Shift UP by k units</td></tr>
-              <tr><td>f(x) − k</td><td class="kw">Shift DOWN by k units</td></tr>
-              <tr><td>f(x + h)</td><td class="kw">Shift LEFT by h units (counterintuitive!)</td></tr>
-              <tr><td>f(x − h)</td><td class="kw">Shift RIGHT by h units</td></tr>
-              <tr><td>−f(x)</td><td class="kw">Reflect over x-axis</td></tr>
-              <tr><td>f(−x)</td><td class="kw">Reflect over y-axis</td></tr>
-              <tr><td>af(x) where a&gt;1</td><td class="kw">Vertical stretch</td></tr>
-            </table>
-          </div>
-          <div class="section"><div class="section-label">Domain & Range Quick Rules</div>
-            <div class="trick-box teal">⚡ Domain = all valid inputs (x). Watch out for: division by zero (denominator ≠ 0), square root of negative (under root ≥ 0). Range = all possible outputs (y).</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M7. Exponential & Linear Growth</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Growth Models</div>
-            <div class="formula-grid">
-              <div class="formula-box"><div class="fname">Exponential Growth</div><div class="fval">y = a(1 + r)ᵗ</div></div>
-              <div class="formula-box"><div class="fname">Exponential Decay</div><div class="fval">y = a(1 − r)ᵗ</div></div>
-              <div class="formula-box"><div class="fname">Compound Interest</div><div class="fval">A = P(1 + r/n)^(nt)</div></div>
-              <div class="formula-box"><div class="fname">General Exponential</div><div class="fval">y = ab^x</div></div>
-            </div>
-          </div>
-          <div class="section"><div class="section-label">Key Trick</div>
-            <div class="trick-box teal">⚡ Linear = constant amount added each period. Exponential = constant percentage multiplied each period. SAT often asks you to identify which model fits — check if the change is additive (linear) or multiplicative (exponential).</div>
-          </div>
-          <div class="section"><div class="section-label">Exponent Rules</div>
-            <div class="formula-grid">
-              <div class="formula-box"><div class="fname">Multiply same base</div><div class="fval">aᵐ · aⁿ = aᵐ⁺ⁿ</div></div>
-              <div class="formula-box"><div class="fname">Divide same base</div><div class="fval">aᵐ / aⁿ = aᵐ⁻ⁿ</div></div>
-              <div class="formula-box"><div class="fname">Power of power</div><div class="fval">(aᵐ)ⁿ = aᵐⁿ</div></div>
-              <div class="formula-box"><div class="fname">Negative exponent</div><div class="fval">a⁻ⁿ = 1/aⁿ</div></div>
-              <div class="formula-box"><div class="fname">Fractional exponent</div><div class="fval">a^(m/n) = ⁿ√(aᵐ)</div></div>
-              <div class="formula-box"><div class="fname">Zero exponent</div><div class="fval">a⁰ = 1 (a ≠ 0)</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M8. Polynomials & Rational Expressions</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-hard">HARDEST</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Key Tricks</div>
-            <div class="trick-box teal">⚡ Remainder Theorem: when polynomial p(x) is divided by (x−a), the remainder = p(a). If (x−a) is a factor → p(a) = 0.</div>
-            <div class="trick-box teal">⚡ Number of solutions of a polynomial = its degree (counting multiplicity). Even multiplicity → graph touches but doesn't cross x-axis. Odd multiplicity → graph crosses.</div>
-          </div>
-          <div class="section"><div class="section-label">Rational Expression Tricks</div>
-            <div class="trick-box teal">⚡ To simplify: factor numerator and denominator, then cancel common factors. Restrictions: values that make denominator = 0 are excluded from domain.</div>
-          </div>
-          <div class="section"><div class="section-label">Polynomial Long Division</div>
-            <div class="example-box">
-              Divide (2x²+5x+3) by (x+1):<br>
-              → 2x²÷x = 2x → multiply back → subtract → repeat<br>
-              → Result: 2x+3 (no remainder → (x+1) is a factor)
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- end advanced -->
-
-    <!-- PROBLEM SOLVING & DATA -->
-    <div class="domain-section" id="psdq">
-      <div class="domain-title">📐 Problem Solving & Data Analysis <span class="badge badge-m">~15% of Math</span></div>
-      <div class="domain-subtitle math-sub">Ratios · Percentages · Statistics · Probability · Data Interpretation</div>
-      <div class="progress-bar"><div class="progress-fill math-fill" style="width:15%"></div></div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M9. Ratios, Proportions & Percentages</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-easy">EASY POINTS</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Key Formulas</div>
-            <div class="formula-grid">
-              <div class="formula-box"><div class="fname">Percent of</div><div class="fval">part = (%) × whole / 100</div></div>
-              <div class="formula-box"><div class="fname">% Change</div><div class="fval">(new−old)/old × 100</div></div>
-              <div class="formula-box"><div class="fname">Proportion</div><div class="fval">a/b = c/d → cross multiply</div></div>
-              <div class="formula-box"><div class="fname">Unit Rate</div><div class="fval">quantity ÷ units</div></div>
-            </div>
-          </div>
-          <div class="section"><div class="section-label">Tricks</div>
-            <div class="trick-box teal">⚡ "X% of Y" = multiply X/100 × Y. "X is what percent of Y?" = (X/Y) × 100. Don't mix them up.</div>
-            <div class="trick-box teal">⚡ Successive percentage changes: 20% increase then 20% decrease ≠ 0% change. Multiply: 1.2 × 0.8 = 0.96 = 4% net decrease.</div>
-          </div>
-          <div class="warn-box">⚠️ "Percent more than" ≠ "percent of." If A is 20% more than B: A = 1.2B. If A is 20% of B: A = 0.2B. Very different!</div>
-        </div>
-      </div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M10. Statistics (Mean, Median, Mode, Spread)</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Definitions</div>
-            <table class="keyword-table">
-              <tr><th>Measure</th><th>What It Is / Trick</th></tr>
-              <tr><td>Mean</td><td class="kw">Sum ÷ count. Sensitive to outliers.</td></tr>
-              <tr><td>Median</td><td class="kw">Middle value when sorted. Resistant to outliers.</td></tr>
-              <tr><td>Mode</td><td class="kw">Most frequent value</td></tr>
-              <tr><td>Range</td><td class="kw">Max − Min</td></tr>
-              <tr><td>Standard Deviation</td><td class="kw">Measures spread. Larger SD = more spread out.</td></tr>
-              <tr><td>IQR</td><td class="kw">Q3 − Q1. Middle 50% spread.</td></tr>
-            </table>
-          </div>
-          <div class="section"><div class="section-label">SAT Tricks</div>
-            <div class="trick-box teal">⚡ If an outlier is added: mean shifts toward it, median barely moves. Questions often ask "which measure changes the most?"</div>
-            <div class="trick-box teal">⚡ "If mean of n numbers is M, sum = n × M." Use this to find a missing value: sum − known values = missing value.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M11. Probability & Counting</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Core Formulas</div>
-            <div class="formula-grid">
-              <div class="formula-box"><div class="fname">Basic Probability</div><div class="fval">P = favorable / total</div></div>
-              <div class="formula-box"><div class="fname">Complement</div><div class="fval">P(not A) = 1 − P(A)</div></div>
-              <div class="formula-box"><div class="fname">Independent Events</div><div class="fval">P(A and B) = P(A)×P(B)</div></div>
-              <div class="formula-box"><div class="fname">Conditional</div><div class="fval">P(A|B) = P(A and B)/P(B)</div></div>
-            </div>
-          </div>
-          <div class="section"><div class="section-label">Two-Way Tables</div>
-            <div class="trick-box teal">⚡ For conditional probability from a table: restrict to the given condition's row/column first, THEN find the favorable count from that restricted group. Don't use total row.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M12. Data Interpretation (Graphs, Scatterplots, Tables)</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-easy">EASY POINTS</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Scatterplot Tricks</div>
-            <div class="trick-box teal">⚡ Line of best fit: positive slope = positive correlation. Negative slope = negative correlation. Read y-intercept and slope as context values.</div>
-            <div class="trick-box teal">⚡ An outlier on a scatterplot is a point far from the line of best fit — not just an extreme x or y value.</div>
-          </div>
-          <div class="section"><div class="section-label">Causation Warning</div>
-            <div class="warn-box">⚠️ Correlation ≠ Causation. If a graph shows both variables increase together, that does NOT mean one causes the other. SAT always tests this.</div>
-          </div>
-          <div class="section"><div class="section-label">Survey/Sample Questions</div>
-            <div class="trick-box teal">⚡ Results from a random sample can be generalized to the population it was drawn from. Results from a biased/voluntary sample cannot. Check the sample size and method.</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- end psdq -->
-
-    <!-- GEOMETRY & TRIG -->
-    <div class="domain-section" id="geometry">
-      <div class="domain-title">📏 Geometry & Trigonometry <span class="badge badge-m">~15% of Math</span></div>
-      <div class="domain-subtitle math-sub">Area · Volume · Angles · Triangles · Circles · Trig Ratios</div>
-      <div class="progress-bar"><div class="progress-fill math-fill" style="width:15%"></div></div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M13. Lines, Angles & Triangles</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-easy">EASY POINTS</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Angle Rules</div>
-            <table class="keyword-table">
-              <tr><th>Rule</th><th>Value</th></tr>
-              <tr><td>Straight line</td><td class="kw">180°</td></tr>
-              <tr><td>Full rotation</td><td class="kw">360°</td></tr>
-              <tr><td>Vertical angles</td><td class="kw">Equal</td></tr>
-              <tr><td>Triangle interior angles</td><td class="kw">Sum = 180°</td></tr>
-              <tr><td>Exterior angle of triangle</td><td class="kw">= sum of two non-adjacent interior angles</td></tr>
-              <tr><td>Parallel lines + transversal</td><td class="kw">Alternate interior = equal. Co-interior = 180°.</td></tr>
-            </table>
-          </div>
-          <div class="section"><div class="section-label">Triangle Tricks</div>
-            <div class="trick-box teal">⚡ Special right triangles: 30-60-90 (sides: 1 : √3 : 2) and 45-45-90 (sides: 1 : 1 : √2). Memorize these — saves quadratic formula time.</div>
-            <div class="trick-box teal">⚡ Similar triangles: corresponding sides are proportional. Set up ratio and solve.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M14. Circles</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-medium">MEDIUM</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Key Formulas</div>
-            <div class="formula-grid">
-              <div class="formula-box"><div class="fname">Circumference</div><div class="fval">C = 2πr</div></div>
-              <div class="formula-box"><div class="fname">Area</div><div class="fval">A = πr²</div></div>
-              <div class="formula-box"><div class="fname">Arc Length</div><div class="fval">(θ/360) × 2πr</div></div>
-              <div class="formula-box"><div class="fname">Sector Area</div><div class="fval">(θ/360) × πr²</div></div>
-              <div class="formula-box"><div class="fname">Standard Equation</div><div class="fval">(x−h)²+(y−k)²=r²</div></div>
-              <div class="formula-box"><div class="fname">Center</div><div class="fval">(h, k) from equation</div></div>
-            </div>
-          </div>
-          <div class="section"><div class="section-label">Circle Equation Trick</div>
-            <div class="trick-box teal">⚡ If given x²+y²+ax+by+c=0, complete the square on x and y to convert to standard form. Find center and radius from there.</div>
-          </div>
-          <div class="section"><div class="section-label">Angle in Circle Rules</div>
-            <table class="keyword-table">
-              <tr><th>Angle Type</th><th>Value</th></tr>
-              <tr><td>Central angle</td><td class="kw">= arc it intercepts</td></tr>
-              <tr><td>Inscribed angle</td><td class="kw">= ½ × intercepted arc</td></tr>
-              <tr><td>Inscribed in semicircle</td><td class="kw">Always 90°</td></tr>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M15. Area, Volume & Surface Area</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-easy">EASY POINTS</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Must-Know Formulas</div>
-            <div class="formula-grid">
-              <div class="formula-box"><div class="fname">Rectangle</div><div class="fval">A = l × w</div></div>
-              <div class="formula-box"><div class="fname">Triangle</div><div class="fval">A = ½bh</div></div>
-              <div class="formula-box"><div class="fname">Trapezoid</div><div class="fval">A = ½(b₁+b₂)h</div></div>
-              <div class="formula-box"><div class="fname">Rectangular Prism</div><div class="fval">V = lwh</div></div>
-              <div class="formula-box"><div class="fname">Cylinder</div><div class="fval">V = πr²h</div></div>
-              <div class="formula-box"><div class="fname">Cone</div><div class="fval">V = ⅓πr²h</div></div>
-              <div class="formula-box"><div class="fname">Sphere</div><div class="fval">V = 4/3 πr³</div></div>
-              <div class="formula-box"><div class="fname">Pyramid</div><div class="fval">V = ⅓(base area)h</div></div>
-            </div>
-          </div>
-          <div class="trick-box teal">⚡ These are given on the SAT reference sheet — but knowing them saves time. Focus on knowing when to use which formula.</div>
-        </div>
-      </div>
-
-      <div class="lesson-card math-card" onclick="toggle(this)">
-        <div class="lesson-header"><span class="lesson-name">M16. Trigonometry (SOH-CAH-TOA & Beyond)</span><div style="display:flex;gap:8px;align-items:center"><span class="lesson-tag tag-hard">HARDEST</span><span class="chevron">▾</span></div></div>
-        <div class="lesson-body">
-          <div class="section"><div class="section-label">Core Ratios</div>
-            <div class="formula-grid">
-              <div class="formula-box"><div class="fname">sin θ</div><div class="fval">opposite / hypotenuse</div></div>
-              <div class="formula-box"><div class="fname">cos θ</div><div class="fval">adjacent / hypotenuse</div></div>
-              <div class="formula-box"><div class="fname">tan θ</div><div class="fval">opposite / adjacent</div></div>
-              <div class="formula-box"><div class="fname">Pythagorean ID</div><div class="fval">sin²θ + cos²θ = 1</div></div>
-            </div>
-          </div>
-          <div class="section"><div class="section-label">Complementary Angle Trick</div>
-            <div class="trick-box teal">⚡ sin(x) = cos(90°−x). If sin(30°) = 0.5, then cos(60°) = 0.5. The SAT tests this constantly — complementary angles have equal sine and cosine swapped.</div>
-          </div>
-          <div class="section"><div class="section-label">Radian Conversions</div>
-            <table class="keyword-table">
-              <tr><th>Degrees</th><th>Radians</th></tr>
-              <tr><td>180°</td><td class="kw">π</td></tr>
-              <tr><td>90°</td><td class="kw">π/2</td></tr>
-              <tr><td>60°</td><td class="kw">π/3</td></tr>
-              <tr><td>45°</td><td class="kw">π/4</td></tr>
-              <tr><td>30°</td><td class="kw">π/6</td></tr>
-            </table>
-            <div class="trick-box teal">⚡ Convert: degrees × π/180 = radians. Radians × 180/π = degrees.</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- end geometry -->
-
-  </div><!-- end math content -->
-</div><!-- end ss-math -->
-
-<script>
-function toggle(card) { card.classList.toggle('open'); }
-
-function switchSection(sec) {
-  document.querySelectorAll('.super-section').forEach(s => s.classList.remove('active'));
-  document.getElementById('ss-' + sec).classList.add('active');
-  document.getElementById('tab-rw').className = 'section-tab' + (sec==='rw' ? ' active-rw' : '');
-  document.getElementById('tab-math').className = 'section-tab' + (sec==='math' ? ' active-math' : '');
-}
-
-function showDomain(id, tabsId) {
-  // hide all domain sections inside the active super-section
-  document.querySelectorAll('.super-section.active .domain-section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  // update tab buttons
-  const tabs = document.getElementById(tabsId);
-  tabs.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.classList.remove('math-active'); });
-  event.target.classList.add(tabsId === 'math-tabs' ? 'math-active' : 'active');
-}
-
-function showMathDomain(id) {
-  document.querySelectorAll('#ss-math .domain-section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('#math-tabs .tab-btn').forEach(b => { b.classList.remove('math-active'); });
-  event.target.classList.add('math-active');
-}
-</script>
+    </script>
 </body>
 </html>
