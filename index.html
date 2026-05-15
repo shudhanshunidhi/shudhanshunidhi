@@ -5,16 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nepal CEE (MECEE-BL) Syllabus Tracker</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@700&display=swap');
+
     :root {
-      --bg-color: #f0f4f8;
-      --container-bg: #ffffff;
-      --primary: #1a365d;
-      --secondary: #3182ce;
-      --danger: #e53e3e;
-      --warning: #d69e2e;
-      --success: #38a169;
-      --text-main: #2d3748;
-      --border-color: #e2e8f0;
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --text-main: #1f2937;
+      --text-light: #6b7280;
     }
 
     * {
@@ -24,278 +25,721 @@
     }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-color);
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
       color: var(--text-main);
-      padding: 20px;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background Stars */
+    .stars-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: 0 auto;
-      background: var(--container-bg);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      padding: 30px 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Header with Motivational Quote */
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .header-title {
-      text-align: center;
-      color: var(--primary);
-      margin-bottom: 8px;
-      font-size: 1.8rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
     }
 
-    .header-subtitle {
-      text-align: center;
-      color: #718096;
-      margin-bottom: 30px;
-      font-size: 0.95rem;
+    .dream-quote {
+      font-size: 1.1rem;
+      color: #a78bfa;
+      font-weight: 300;
+      margin-bottom: 5px;
+      letter-spacing: 0.5px;
     }
 
-    /* --- LOGIN SCREEN --- */
+    .dream-emoji {
+      font-size: 3rem;
+      margin: 10px 0;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Login Screen */
     #login-screen {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 0;
+      min-height: 60vh;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .login-box {
-      background: #f7fafc;
-      padding: 30px;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 45px;
+      border-radius: 20px;
+      border: 2px solid rgba(102, 126, 234, 0.2);
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .login-box h2 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .login-box p {
+      color: var(--text-light);
+      margin-bottom: 25px;
+      line-height: 1.6;
     }
 
     .login-box input {
       width: 100%;
-      padding: 12px 15px;
-      margin: 15px 0;
-      border: 2px solid var(--border-color);
-      border-radius: 8px;
+      padding: 15px 18px;
+      margin-bottom: 20px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
       font-size: 16px;
       outline: none;
-      transition: border 0.3s;
+      transition: all 0.3s ease;
+      background: #f9fafb;
     }
 
     .login-box input:focus {
-      border-color: var(--secondary);
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
     }
 
     .btn-primary {
-      background: var(--secondary);
+      width: 100%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
       border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
+      padding: 15px 20px;
+      border-radius: 12px;
       font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
-      width: 100%;
-      font-weight: 600;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
     }
 
     .btn-primary:hover {
-      background: #2b6cb0;
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
     }
 
-    /* --- TRACKER SCREEN --- */
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    /* Tracker Screen */
     #tracker-screen {
-      display: none; /* Hidden until login */
+      display: none;
     }
 
     .user-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #ebf8ff;
-      padding: 15px 20px;
-      border-radius: 8px;
-      border-left: 5px solid var(--secondary);
-      margin-bottom: 25px;
+      background: rgba(102, 126, 234, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 18px 25px;
+      border-radius: 15px;
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      margin-bottom: 30px;
+      animation: slideInUp 0.6s ease-out;
     }
 
-    .user-bar span {
-      font-weight: bold;
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-info span {
+      font-weight: 700;
       font-size: 1.1rem;
-      color: #2b6cb0;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .btn-logout {
       background: transparent;
-      border: 1px solid var(--secondary);
-      color: var(--secondary);
-      padding: 8px 15px;
-      border-radius: 6px;
+      border: 2px solid var(--danger);
+      color: var(--danger);
+      padding: 10px 18px;
+      border-radius: 10px;
       cursor: pointer;
       font-weight: 600;
+      transition: all 0.3s ease;
     }
 
     .btn-logout:hover {
-      background: var(--secondary);
+      background: var(--danger);
       color: white;
     }
 
-    /* --- DASHBOARD --- */
+    /* Motivational Dashboard */
+    .motivation-card {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      text-align: center;
+      animation: slideInUp 0.7s ease-out 0.2s backwards;
+    }
+
+    .motivation-text {
+      font-size: 1.2rem;
+      color: #a78bfa;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .motivation-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Dashboard Stats */
     .dashboard {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 20px;
+      gap: 18px;
+      margin-bottom: 30px;
     }
 
     .stat-box {
-      padding: 20px;
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 25px;
+      border-radius: 15px;
       text-align: center;
-      color: white;
+      border: 1px solid rgba(102, 126, 234, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      animation: slideInUp 0.6s ease-out;
     }
 
-    .stat-box h3 { font-size: 2rem; margin-bottom: 5px; }
-    .stat-box p { font-size: 0.9rem; opacity: 0.9; }
+    .stat-box:nth-child(1) { animation-delay: 0.1s; }
+    .stat-box:nth-child(2) { animation-delay: 0.2s; }
+    .stat-box:nth-child(3) { animation-delay: 0.3s; }
 
-    .box-total { background: var(--primary); }
-    .box-completed { background: var(--success); }
-    .box-remaining { background: var(--danger); }
+    .stat-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    /* Progress Bar */
+    .progress-section {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: slideInUp 0.6s ease-out 0.4s backwards;
+    }
+
+    .progress-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .progress-title span:first-child {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .progress-text {
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 1.3rem;
+    }
 
     .progress-container {
       width: 100%;
-      background: #edf2f7;
-      border-radius: 10px;
-      height: 20px;
-      margin-bottom: 30px;
+      background: #e5e7eb;
+      border-radius: 20px;
+      height: 25px;
       overflow: hidden;
+      position: relative;
     }
 
     .progress-bar {
       height: 100%;
-      background: var(--success);
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
       width: 0%;
-      transition: width 0.4s ease;
+      transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+      position: relative;
     }
 
-    /* --- SYLLABUS LIST --- */
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Subject Cards */
     .subject-card {
+      background: rgba(255, 255, 255, 0.95);
       margin-bottom: 25px;
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
+      border-radius: 15px;
       overflow: hidden;
-      background: white;
+      border: 1px solid rgba(102, 126, 234, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      animation: slideInUp 0.6s ease-out;
+    }
+
+    .subject-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
 
     .subject-header {
-      background: var(--primary);
+      background: linear-gradient(135deg, #667eea, #764ba2);
       color: white;
-      padding: 15px 20px;
+      padding: 18px 25px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .subject-header h2 { font-size: 1.2rem; }
-    .marks-badge { background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; }
+    .subject-header h2 {
+      font-size: 1.3rem;
+      margin: 0;
+    }
+
+    .marks-badge {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
 
     .topic-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
-      border-bottom: 1px solid var(--border-color);
+      padding: 18px 25px;
+      border-bottom: 1px solid #f3f4f6;
+      transition: all 0.3s ease;
     }
 
-    .topic-item:last-child { border-bottom: none; }
+    .topic-item:last-child {
+      border-bottom: none;
+    }
 
-    .topic-info { flex: 1; }
-    .topic-name { font-weight: 500; display: block; margin-bottom: 4px;}
-    .topic-weight { font-size: 0.8rem; color: #718096; background: #edf2f7; padding: 2px 8px; border-radius: 4px; }
+    .topic-item:hover {
+      background: #f9fafb;
+    }
+
+    .topic-info {
+      flex: 1;
+    }
+
+    .topic-name {
+      font-weight: 600;
+      display: block;
+      color: var(--text-main);
+      margin-bottom: 5px;
+    }
+
+    .topic-weight {
+      font-size: 0.8rem;
+      color: white;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      padding: 3px 10px;
+      border-radius: 6px;
+      display: inline-block;
+    }
 
     select {
-      min-width: 160px;
-      padding: 10px 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
+      min-width: 200px;
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: 2px solid #e5e7eb;
       font-weight: 600;
       cursor: pointer;
       outline: none;
-      background: #f7fafc;
+      background: white;
+      transition: all 0.3s ease;
     }
 
-    .status-remaining { color: var(--danger); }
-    .status-progress { color: var(--warning); }
-    .status-completed { color: var(--success); }
+    select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .status-remaining {
+      color: #dc2626;
+      border-color: #dc2626;
+    }
+
+    .status-progress {
+      color: #d97706;
+      border-color: #d97706;
+    }
+
+    .status-completed {
+      color: #059669;
+      border-color: #059669;
+    }
+
+    /* Celebration Animation */
+    @keyframes celebrate {
+      0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .confetti {
+      position: fixed;
+      pointer-events: none;
+      font-size: 2rem;
+      animation: celebrate 1s ease-out forwards;
+    }
+
+    /* Motivational Popup */
+    .motivation-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      z-index: 1000;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      animation: popupBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      max-width: 400px;
+      display: none;
+    }
+
+    @keyframes popupBounce {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    .motivation-popup.show {
+      display: block;
+    }
+
+    .motivation-popup h3 {
+      font-size: 2rem;
+      color: var(--primary);
+      margin: 15px 0;
+      font-weight: 800;
+    }
+
+    .motivation-popup .emoji-large {
+      font-size: 4rem;
+      margin-bottom: 15px;
+    }
+
+    .motivation-popup p {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin: 15px 0;
+    }
+
+    .motivation-popup .btn-dismiss {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .motivation-popup .btn-dismiss:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+    }
+
+    .overlay.show {
+      display: block;
+    }
 
     .save-indicator {
       text-align: center;
       color: var(--success);
-      font-size: 0.9rem;
-      margin-top: 10px;
-      height: 20px;
-      font-weight: 600;
+      font-size: 0.95rem;
+      margin-top: 15px;
+      height: 25px;
+      font-weight: 700;
+      animation: fadeInOut 3s ease-in-out;
     }
 
-    @media (max-width: 650px) {
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
       .dashboard { grid-template-columns: 1fr; }
-      .topic-item { flex-direction: column; align-items: flex-start; gap: 12px; }
-      select { width: 100%; }
+      .topic-item { flex-direction: column; align-items: flex-start; gap: 15px; }
+      select { width: 100%; min-width: auto; }
+      .header-title { font-size: 2rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Animated Stars Background -->
+  <div class="stars-bg" id="stars-bg"></div>
+
   <div class="container">
-    <h1 class="header-title">🇳🇵 MECEE-BL Syllabus Tracker</h1>
-    <p class="header-subtitle">New Revised Syllabus (2026) | Track & Auto-Save your Progress</p>
+    <!-- Header -->
+    <div class="header">
+      <div class="dream-emoji">👨‍⚕️</div>
+      <h1 class="header-title">Your Path to Medicine Starts Here</h1>
+      <p class="dream-quote">🎓 Every topic completed brings you closer to your dream...</p>
+    </div>
 
     <!-- Login Screen -->
     <div id="login-screen">
       <div class="login-box">
-        <h2>Welcome Student! 🎓</h2>
-        <p style="color: #718096; margin-top: 10px; font-size: 0.9rem;">Enter your name to load or start your tracker. Your data will be saved safely on this device.</p>
+        <h2>Welcome, Future Doctor! 👨‍⚕️</h2>
+        <p>Your journey to medical school starts with a single step. Enter your name and let's track your CEE preparation together!</p>
         <input type="text" id="studentNameInput" placeholder="Enter your full name..." autocomplete="off" />
-        <button class="btn-primary" onclick="loginStudent()">Open My Tracker</button>
+        <button class="btn-primary" onclick="loginStudent()">Start My Journey</button>
       </div>
     </div>
 
     <!-- Main Tracker Screen -->
     <div id="tracker-screen">
       <div class="user-bar">
-        <span>👤 Student: <span id="displayStudentName"></span></span>
-        <button class="btn-logout" onclick="logoutStudent()">Switch User / Logout</button>
+        <div class="user-info">
+          <span>👤 Student: <span id="displayStudentName"></span></span>
+        </div>
+        <button class="btn-logout" onclick="logoutStudent()">Logout</button>
+      </div>
+
+      <div class="motivation-card">
+        <div class="motivation-emoji">🚀</div>
+        <p class="motivation-text" id="motivational-message">Keep pushing! Every completed topic is a step closer to your dream! 💪</p>
       </div>
 
       <div class="dashboard">
-        <div class="stat-box box-total">
-          <h3 id="stat-total">0</h3>
-          <p>Total Topics</p>
+        <div class="stat-box">
+          <div class="stat-emoji">📚</div>
+          <div class="stat-number" id="stat-total">0</div>
+          <div class="stat-label">Total Topics</div>
         </div>
-        <div class="stat-box box-completed">
-          <h3 id="stat-completed">0</h3>
-          <p>Topics Completed 🟢</p>
+        <div class="stat-box">
+          <div class="stat-emoji">🟢</div>
+          <div class="stat-number" id="stat-completed">0</div>
+          <div class="stat-label">Completed</div>
         </div>
-        <div class="stat-box box-remaining">
-          <h3 id="stat-remaining">0</h3>
-          <p>Topics Remaining 🔴</p>
+        <div class="stat-box">
+          <div class="stat-emoji">🔴</div>
+          <div class="stat-number" id="stat-remaining">0</div>
+          <div class="stat-label">Remaining</div>
         </div>
       </div>
 
-      <p style="font-weight: 600; margin-bottom: 5px;">Overall Syllabus Progress: <span id="progress-text">0%</span></p>
-      <div class="progress-container">
-        <div class="progress-bar" id="progress-bar"></div>
+      <div class="progress-section">
+        <div class="progress-title">
+          <span>📊 Your Dream Progress</span>
+          <span class="progress-text" id="progress-text">0%</span>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
       </div>
 
       <div id="syllabus-container"></div>
-
       <div class="save-indicator" id="save-indicator"></div>
     </div>
   </div>
 
+  <!-- Motivation Popup -->
+  <div class="overlay" id="overlay"></div>
+  <div class="motivation-popup" id="motivation-popup">
+    <div class="emoji-large" id="popup-emoji">🎉</div>
+    <h3 id="popup-title">Excellent!</h3>
+    <p id="popup-message">You're getting closer to your dream every day!</p>
+    <button class="btn-dismiss" onclick="closeMotivationPopup()">Keep Going! 💪</button>
+  </div>
+
   <script>
-    // New 2026 Revised Syllabus Data with Weightage
+    // Animated Background Stars
+    function createStars() {
+      const starsBg = document.getElementById('stars-bg');
+      for (let i = 0; i < 50; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = Math.random() * 3 + 'px';
+        star.style.height = star.style.width;
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        starsBg.appendChild(star);
+      }
+    }
+    createStars();
+
+    // Syllabus Data - Exact 2026 Revised Version
     const syllabusData = [
       {
         subject: "Physics", totalMarks: 50,
@@ -360,18 +804,26 @@
     let userProgress = {};
     let saveTimeout;
 
-    // DOM Elements
     const loginScreen = document.getElementById('login-screen');
     const trackerScreen = document.getElementById('tracker-screen');
     const studentNameInput = document.getElementById('studentNameInput');
     const container = document.getElementById('syllabus-container');
 
-    // Utility: Generate safe storage key
+    // Motivational messages
+    const motivationalMessages = [
+      "Every chapter completed brings you closer to your stethoscope! 🩺",
+      "You're building your foundation for medicine! 🏗️",
+      "Future doctors don't give up - keep going! 💪",
+      "Each topic mastered = One step toward your white coat! 👨‍⚕️",
+      "Your dream medical career starts with consistent effort! 🎯",
+      "Believe in yourself - you've got this! ✨",
+      "Today's effort = Tomorrow's success! 🚀"
+    ];
+
     function getStorageKey(name) {
       return "cee2026_" + name.toLowerCase().trim().replace(/\s+/g, '_');
     }
 
-    // Login Function
     function loginStudent() {
       const name = studentNameInput.value.trim();
       if (!name) {
@@ -380,17 +832,15 @@
       }
       
       currentStudent = name;
-      localStorage.setItem('cee_last_user', name); // Remember last logged in user
+      localStorage.setItem('cee_last_user', name);
       
-      // Load Data
       const savedData = localStorage.getItem(getStorageKey(name));
       if (savedData) {
         userProgress = JSON.parse(savedData);
       } else {
-        userProgress = {}; // Fresh start
+        userProgress = {};
       }
 
-      // UI Changes
       document.getElementById('displayStudentName').innerText = name;
       loginScreen.style.display = 'none';
       trackerScreen.style.display = 'block';
@@ -398,7 +848,6 @@
       renderSyllabus();
     }
 
-    // Logout Function
     function logoutStudent() {
       localStorage.removeItem('cee_last_user');
       currentStudent = "";
@@ -408,7 +857,6 @@
       loginScreen.style.display = 'flex';
     }
 
-    // Auto Check Login on Page Load
     window.onload = () => {
       const lastUser = localStorage.getItem('cee_last_user');
       if (lastUser) {
@@ -417,7 +865,6 @@
       }
     };
 
-    // Render HTML dynamically
     function renderSyllabus() {
       container.innerHTML = '';
       
@@ -425,13 +872,11 @@
         const card = document.createElement('div');
         card.className = 'subject-card';
 
-        // Header
         const header = document.createElement('div');
         header.className = 'subject-header';
-        header.innerHTML = `<h2>${subjectObj.subject}</h2> <span class="marks-badge">${subjectObj.totalMarks} Questions</span>`;
+        header.innerHTML = `<h2>${subjectObj.subject}</h2> <span class="marks-badge">${subjectObj.totalMarks} Qs</span>`;
         card.appendChild(header);
 
-        // Topics
         subjectObj.topics.forEach((topic, tIndex) => {
           const topicId = `s${sIndex}_t${tIndex}`;
           const currentStatus = userProgress[topicId] || 'remaining';
@@ -439,7 +884,6 @@
           const item = document.createElement('div');
           item.className = 'topic-item';
 
-          // Info
           const info = document.createElement('div');
           info.className = 'topic-info';
           info.innerHTML = `
@@ -447,14 +891,13 @@
             <span class="topic-weight">Weightage: ${topic.weight} Qs</span>
           `;
 
-          // Dropdown
           const select = document.createElement('select');
           select.className = getStatusClass(currentStatus);
           
           const options = [
-            { val: 'remaining', text: '🔴 Remaining / Not Started' },
-            { val: 'progress', text: '🟡 In Progress / Little Confident' },
-            { val: 'completed', text: '🟢 Completed / Fully Confident' }
+            { val: 'remaining', text: '🔴 Remaining' },
+            { val: 'progress', text: '🟡 In Progress' },
+            { val: 'completed', text: '🟢 Completed' }
           ];
 
           options.forEach(opt => {
@@ -465,11 +908,16 @@
             select.appendChild(optionEl);
           });
 
-          // Change Event Trigger -> Auto Save
           select.addEventListener('change', (e) => {
             const newVal = e.target.value;
+            const oldVal = userProgress[topicId];
             userProgress[topicId] = newVal;
             select.className = getStatusClass(newVal);
+            
+            // Show celebration only when marking as completed
+            if (newVal === 'completed' && oldVal !== 'completed') {
+              celebrateTopic();
+            }
             
             updateDashboard();
             autoSaveData();
@@ -486,7 +934,6 @@
       updateDashboard();
     }
 
-    // Assign text colors
     function getStatusClass(status) {
       if (status === 'remaining') return 'status-remaining';
       if (status === 'progress') return 'status-progress';
@@ -494,7 +941,6 @@
       return '';
     }
 
-    // Calculate Stats & Progress bar
     function updateDashboard() {
       let total = 0;
       let completed = 0;
@@ -507,7 +953,7 @@
           if (status === 'completed') {
             completed++;
           } else {
-            remaining++; // Treat 'remaining' and 'progress' both as not complete yet
+            remaining++;
           }
         });
       });
@@ -516,22 +962,63 @@
       document.getElementById('stat-completed').innerText = completed;
       document.getElementById('stat-remaining').innerText = remaining;
 
-      // Progress Bar calculation
       const percentage = Math.round((completed / total) * 100) || 0;
       document.getElementById('progress-bar').style.width = percentage + '%';
       document.getElementById('progress-text').innerText = percentage + '%';
+
+      // Update motivational message
+      const messageIndex = Math.floor(Math.random() * motivationalMessages.length);
+      document.getElementById('motivational-message').innerText = motivationalMessages[messageIndex];
     }
 
-    // Auto-Save background function
+    function celebrateTopic() {
+      // Confetti Animation
+      for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.innerText = ['🎉', '✨', '⭐', '🌟', '💫', '🎊', '🏆'][Math.floor(Math.random() * 7)];
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = '-10px';
+        confetti.style.animationDuration = (1 + Math.random() * 0.5) + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 1500);
+      }
+
+      // Show Motivation Popup
+      showMotivationPopup();
+    }
+
+    function showMotivationPopup() {
+      const popupMessages = [
+        { emoji: '🎉', title: 'Excellent!', message: 'You completed a topic! Every step counts! 🚀' },
+        { emoji: '🏆', title: 'You Rock!', message: 'Keep this momentum going! 💪' },
+        { emoji: '⭐', title: 'Amazing!', message: 'Future Doctor is on the rise! 👨‍⚕️' },
+        { emoji: '✨', title: 'Superb!', message: 'Your dedication will pay off! 🌟' },
+        { emoji: '💪', title: 'Strong!', message: 'You\'re getting closer to your dream! 🎓' }
+      ];
+
+      const msg = popupMessages[Math.floor(Math.random() * popupMessages.length)];
+      document.getElementById('popup-emoji').innerText = msg.emoji;
+      document.getElementById('popup-title').innerText = msg.title;
+      document.getElementById('popup-message').innerText = msg.message;
+
+      document.getElementById('overlay').classList.add('show');
+      document.getElementById('motivation-popup').classList.add('show');
+    }
+
+    function closeMotivationPopup() {
+      document.getElementById('overlay').classList.remove('show');
+      document.getElementById('motivation-popup').classList.remove('show');
+    }
+
     function autoSaveData() {
       if (!currentStudent) return;
       
       const key = getStorageKey(currentStudent);
       localStorage.setItem(key, JSON.stringify(userProgress));
 
-      // Show temporary "Saved!" notification
       const indicator = document.getElementById('save-indicator');
-      indicator.innerText = `✅ Progress saved automatically for ${currentStudent}`;
+      indicator.innerText = `✅ Progress saved!`;
       
       clearTimeout(saveTimeout);
       saveTimeout = setTimeout(() => {
@@ -539,13 +1026,15 @@
       }, 3000);
     }
 
-    // Allow Enter key to submit login
     studentNameInput.addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
         event.preventDefault();
         loginStudent();
       }
     });
+
+    // Close popup on overlay click
+    document.getElementById('overlay').addEventListener('click', closeMotivationPopup);
 
   </script>
 </body>
