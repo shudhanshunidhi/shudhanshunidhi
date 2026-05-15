@@ -1,341 +1,552 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nepal CEE Syllabus Tracker</title>
-    <style>
-        :root {
-            --bg-color: #f4f7f6;
-            --container-bg: #ffffff;
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --not-touched: #e74c3c;
-            --little-confident: #f1c40f;
-            --fully-confident: #2ecc71;
-            --text-main: #333333;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nepal CEE (MECEE-BL) Syllabus Tracker</title>
+  <style>
+    :root {
+      --bg-color: #f0f4f8;
+      --container-bg: #ffffff;
+      --primary: #1a365d;
+      --secondary: #3182ce;
+      --danger: #e53e3e;
+      --warning: #d69e2e;
+      --success: #38a169;
+      --text-main: #2d3748;
+      --border-color: #e2e8f0;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: var(--container-bg);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 20px;
+    }
 
-        h1 {
-            text-align: center;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--container-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
 
-        p.subtitle {
-            text-align: center;
-            color: #7f8c8d;
-            margin-bottom: 30px;
-        }
+    .header-title {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-size: 1.8rem;
+    }
 
-        .summary-dashboard {
-            display: flex;
-            justify-content: space-around;
-            background: #ecf0f1;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
+    .header-subtitle {
+      text-align: center;
+      color: #718096;
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+    }
 
-        .summary-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    /* --- LOGIN SCREEN --- */
+    #login-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 0;
+    }
 
-        .summary-box span.count {
-            font-size: 24px;
-            font-weight: bold;
-        }
+    .login-box {
+      background: #f7fafc;
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
 
-        .count.not-touched { color: var(--not-touched); }
-        .count.little { color: #d35400; } /* Darker yellow/orange for contrast */
-        .count.fully { color: var(--fully-confident); }
+    .login-box input {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 15px 0;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+      transition: border 0.3s;
+    }
 
-        .subject-section {
-            margin-bottom: 25px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+    .login-box input:focus {
+      border-color: var(--secondary);
+    }
 
-        .subject-header {
-            background-color: var(--primary);
-            color: white;
-            padding: 15px 20px;
-            font-size: 1.2rem;
-            margin: 0;
-        }
+    .btn-primary {
+      background: var(--secondary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
 
-        .chapter-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+    .btn-primary:hover {
+      background: #2b6cb0;
+    }
 
-        .chapter-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 20px;
-            border-bottom: 1px solid #eee;
-            transition: background 0.3s ease;
-        }
+    /* --- TRACKER SCREEN --- */
+    #tracker-screen {
+      display: none; /* Hidden until login */
+    }
 
-        .chapter-item:last-child {
-            border-bottom: none;
-        }
+    .user-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ebf8ff;
+      padding: 15px 20px;
+      border-radius: 8px;
+      border-left: 5px solid var(--secondary);
+      margin-bottom: 25px;
+    }
 
-        .chapter-name {
-            font-weight: 500;
-        }
+    .user-bar span {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #2b6cb0;
+    }
 
-        select {
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-weight: bold;
-            cursor: pointer;
-            outline: none;
-        }
+    .btn-logout {
+      background: transparent;
+      border: 1px solid var(--secondary);
+      color: var(--secondary);
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
 
-        /* Status Colors for Select Dropdown */
-        .status-not-touched { background-color: #fadbd8; color: #c0392b; }
-        .status-little { background-color: #fcf3cf; color: #b9770e; }
-        .status-fully { background-color: #d5f5e3; color: #1e8449; }
+    .btn-logout:hover {
+      background: var(--secondary);
+      color: white;
+    }
 
-        @media (max-width: 600px) {
-            .chapter-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            .summary-dashboard {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-    </style>
+    /* --- DASHBOARD --- */
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .stat-box {
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      color: white;
+    }
+
+    .stat-box h3 { font-size: 2rem; margin-bottom: 5px; }
+    .stat-box p { font-size: 0.9rem; opacity: 0.9; }
+
+    .box-total { background: var(--primary); }
+    .box-completed { background: var(--success); }
+    .box-remaining { background: var(--danger); }
+
+    .progress-container {
+      width: 100%;
+      background: #edf2f7;
+      border-radius: 10px;
+      height: 20px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--success);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    /* --- SYLLABUS LIST --- */
+    .subject-card {
+      margin-bottom: 25px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .subject-header {
+      background: var(--primary);
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .subject-header h2 { font-size: 1.2rem; }
+    .marks-badge { background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; }
+
+    .topic-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .topic-item:last-child { border-bottom: none; }
+
+    .topic-info { flex: 1; }
+    .topic-name { font-weight: 500; display: block; margin-bottom: 4px;}
+    .topic-weight { font-size: 0.8rem; color: #718096; background: #edf2f7; padding: 2px 8px; border-radius: 4px; }
+
+    select {
+      min-width: 160px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      background: #f7fafc;
+    }
+
+    .status-remaining { color: var(--danger); }
+    .status-progress { color: var(--warning); }
+    .status-completed { color: var(--success); }
+
+    .save-indicator {
+      text-align: center;
+      color: var(--success);
+      font-size: 0.9rem;
+      margin-top: 10px;
+      height: 20px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 650px) {
+      .dashboard { grid-template-columns: 1fr; }
+      .topic-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+      select { width: 100%; }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>🇳🇵 Nepal CEE Syllabus Tracker</h1>
-        <p class="subtitle">Track your preparation progress for MECEE-UG</p>
+  <div class="container">
+    <h1 class="header-title">🇳🇵 MECEE-BL Syllabus Tracker</h1>
+    <p class="header-subtitle">New Revised Syllabus (2026) | Track & Auto-Save your Progress</p>
 
-        <!-- Progress Summary -->
-        <div class="summary-dashboard">
-            <div class="summary-box">
-                <span class="count not-touched" id="count-not">0</span>
-                <span>Not Touched 🔴</span>
-            </div>
-            <div class="summary-box">
-                <span class="count little" id="count-little">0</span>
-                <span>Little Confident 🟡</span>
-            </div>
-            <div class="summary-box">
-                <span class="count fully" id="count-fully">0</span>
-                <span>Fully Confident 🟢</span>
-            </div>
-        </div>
-
-        <!-- Subjects Container -->
-        <div id="syllabus-container"></div>
+    <!-- Login Screen -->
+    <div id="login-screen">
+      <div class="login-box">
+        <h2>Welcome Student! 🎓</h2>
+        <p style="color: #718096; margin-top: 10px; font-size: 0.9rem;">Enter your name to load or start your tracker. Your data will be saved safely on this device.</p>
+        <input type="text" id="studentNameInput" placeholder="Enter your full name..." autocomplete="off" />
+        <button class="btn-primary" onclick="loginStudent()">Open My Tracker</button>
+      </div>
     </div>
 
-    <script>
-        // Nepal CEE (MECEE-UG) Standard Syllabus Data
-        const ceeSyllabus = [
-            {
-                subject: "Physics",
-                chapters: [
-                    "Mechanics",
-                    "Heat & Thermodynamics",
-                    "Geometrical Optics & Physical Optics",
-                    "Acoustics (Sound Waves)",
-                    "Current Electricity & Magnetism",
-                    "Modern Physics & Electronics"
-                ]
-            },
-            {
-                subject: "Chemistry",
-                chapters: [
-                    "Language of Chemistry & Atomic Structure",
-                    "States of Matter & Thermodynamics",
-                    "Chemical Kinetics & Equilibrium",
-                    "Inorganic Chemistry (Metals & Non-metals)",
-                    "Basic Concepts of Organic Chemistry",
-                    "Hydrocarbons & Halocalkanes",
-                    "Alcohols, Phenols & Ethers",
-                    "Aldehydes, Ketones & Carboxylic Acids"
-                ]
-            },
-            {
-                subject: "Zoology",
-                chapters: [
-                    "Biology & Diversity of Microbes",
-                    "Animal Tissues & Anatomy",
-                    "Human Physiology (Digestion, Respiration, Circulation)",
-                    "Human Physiology (Excretion, Nervous, Endocrine)",
-                    "Human Reproduction & Development",
-                    "Genetics & Evolution",
-                    "Ecology & Environment"
-                ]
-            },
-            {
-                subject: "Botany",
-                chapters: [
-                    "Plant Anatomy & Physiology",
-                    "Plant Diversity (Algae, Fungi, Bryophytes, Pteridophytes)",
-                    "Gymnosperms & Angiosperms",
-                    "Plant Reproduction",
-                    "Genetics & Plant Breeding"
-                ]
-            },
-            {
-                subject: "MAT (Mental Agility Test)",
-                chapters: [
-                    "Numerical Reasoning",
-                    "Logical Sequencing",
-                    "Spatial Relation",
-                    "Abstract Reasoning"
-                ]
-            }
-        ];
+    <!-- Main Tracker Screen -->
+    <div id="tracker-screen">
+      <div class="user-bar">
+        <span>👤 Student: <span id="displayStudentName"></span></span>
+        <button class="btn-logout" onclick="logoutStudent()">Switch User / Logout</button>
+      </div>
 
-        // Load saved progress from LocalStorage or initialize empty object
-        let userProgress = JSON.parse(localStorage.getItem('ceeProgress')) || {};
+      <div class="dashboard">
+        <div class="stat-box box-total">
+          <h3 id="stat-total">0</h3>
+          <p>Total Topics</p>
+        </div>
+        <div class="stat-box box-completed">
+          <h3 id="stat-completed">0</h3>
+          <p>Topics Completed 🟢</p>
+        </div>
+        <div class="stat-box box-remaining">
+          <h3 id="stat-remaining">0</h3>
+          <p>Topics Remaining 🔴</p>
+        </div>
+      </div>
 
-        const container = document.getElementById('syllabus-container');
+      <p style="font-weight: 600; margin-bottom: 5px;">Overall Syllabus Progress: <span id="progress-text">0%</span></p>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
 
-        // Function to render the syllabus to the screen
-        function renderSyllabus() {
-            container.innerHTML = ''; // Clear container
+      <div id="syllabus-container"></div>
 
-            ceeSyllabus.forEach((subjectObj, subjectIndex) => {
-                // Create Subject Section
-                const section = document.createElement('div');
-                section.className = 'subject-section';
-                
-                // Subject Header
-                const header = document.createElement('h2');
-                header.className = 'subject-header';
-                header.innerText = subjectObj.subject;
-                section.appendChild(header);
+      <div class="save-indicator" id="save-indicator"></div>
+    </div>
+  </div>
 
-                // Chapter List
-                const list = document.createElement('ul');
-                list.className = 'chapter-list';
+  <script>
+    // New 2026 Revised Syllabus Data with Weightage
+    const syllabusData = [
+      {
+        subject: "Physics", totalMarks: 50,
+        topics: [
+          { name: "Mechanics", weight: 10 },
+          { name: "Heat and thermodynamics", weight: 7 },
+          { name: "Waves and optics", weight: 8 },
+          { name: "Current electricity and magnetism", weight: 9 },
+          { name: "Electrostatics and capacitors", weight: 4 },
+          { name: "Modern physics", weight: 12 }
+        ]
+      },
+      {
+        subject: "Chemistry", totalMarks: 50,
+        topics: [
+          { name: "Physical chemistry", weight: 17 },
+          { name: "Inorganic chemistry", weight: 10 },
+          { name: "Organic chemistry", weight: 17 },
+          { name: "Applied chemistry", weight: 3 },
+          { name: "Analytic chemistry", weight: 3 }
+        ]
+      },
+      {
+        subject: "Zoology", totalMarks: 40,
+        topics: [
+          { name: "Evolutionary Biology", weight: 3 },
+          { name: "Animal Diversity and Classification", weight: 4 },
+          { name: "Animal Tissues and Histology", weight: 4 },
+          { name: "Study of Selected Animals", weight: 6 },
+          { name: "Human Biology and Physiology", weight: 15 },
+          { name: "Microbial Diseases and Immunology", weight: 4 },
+          { name: "Medical Technology and Applied Biology", weight: 2 },
+          { name: "Biota, Environment and Conservation", weight: 2 }
+        ]
+      },
+      {
+        subject: "Botany", totalMarks: 40,
+        topics: [
+          { name: "Basic component of life", weight: 2 },
+          { name: "Biodiversity", weight: 9 },
+          { name: "Ecology and vegetation", weight: 4 },
+          { name: "Cell biology", weight: 5 },
+          { name: "Genetics", weight: 6 },
+          { name: "Plant anatomy", weight: 3 },
+          { name: "Plant physiology", weight: 6 },
+          { name: "Developmental botany", weight: 2 },
+          { name: "Applied botany", weight: 3 }
+        ]
+      },
+      {
+        subject: "MAT (Mental Agility Test)", totalMarks: 20,
+        topics: [
+          { name: "Verbal reasoning", weight: 5 },
+          { name: "Numerical reasoning", weight: 5 },
+          { name: "Logical sequencing", weight: 5 },
+          { name: "Spatial relation / Abstract reasoning", weight: 5 }
+        ]
+      }
+    ];
 
-                subjectObj.chapters.forEach((chapter, chapterIndex) => {
-                    const uniqueId = `sub_${subjectIndex}_chap_${chapterIndex}`;
-                    const currentStatus = userProgress[uniqueId] || 'not-touched';
+    let currentStudent = "";
+    let userProgress = {};
+    let saveTimeout;
 
-                    const listItem = document.createElement('li');
-                    listItem.className = 'chapter-item';
+    // DOM Elements
+    const loginScreen = document.getElementById('login-screen');
+    const trackerScreen = document.getElementById('tracker-screen');
+    const studentNameInput = document.getElementById('studentNameInput');
+    const container = document.getElementById('syllabus-container');
 
-                    const chapterName = document.createElement('span');
-                    chapterName.className = 'chapter-name';
-                    chapterName.innerText = chapter;
+    // Utility: Generate safe storage key
+    function getStorageKey(name) {
+      return "cee2026_" + name.toLowerCase().trim().replace(/\s+/g, '_');
+    }
 
-                    // Dropdown for confidence level
-                    const select = document.createElement('select');
-                    select.className = getStatusClass(currentStatus);
-                    
-                    const options = [
-                        { value: 'not-touched', text: '🔴 Not Touched' },
-                        { value: 'little', text: '🟡 Little Confident' },
-                        { value: 'fully', text: '🟢 Fully Confident' }
-                    ];
+    // Login Function
+    function loginStudent() {
+      const name = studentNameInput.value.trim();
+      if (!name) {
+        alert("Please enter your name to continue!");
+        return;
+      }
+      
+      currentStudent = name;
+      localStorage.setItem('cee_last_user', name); // Remember last logged in user
+      
+      // Load Data
+      const savedData = localStorage.getItem(getStorageKey(name));
+      if (savedData) {
+        userProgress = JSON.parse(savedData);
+      } else {
+        userProgress = {}; // Fresh start
+      }
 
-                    options.forEach(opt => {
-                        const optionElement = document.createElement('option');
-                        optionElement.value = opt.value;
-                        optionElement.innerText = opt.text;
-                        if (opt.value === currentStatus) optionElement.selected = true;
-                        select.appendChild(optionElement);
-                    });
+      // UI Changes
+      document.getElementById('displayStudentName').innerText = name;
+      loginScreen.style.display = 'none';
+      trackerScreen.style.display = 'block';
 
-                    // Event Listener when user changes status
-                    select.addEventListener('change', function(e) {
-                        const newStatus = e.target.value;
-                        userProgress[uniqueId] = newStatus;
-                        select.className = getStatusClass(newStatus); // Update color
-                        saveProgress();
-                        updateDashboard();
-                    });
+      renderSyllabus();
+    }
 
-                    listItem.appendChild(chapterName);
-                    listItem.appendChild(select);
-                    list.appendChild(listItem);
-                });
+    // Logout Function
+    function logoutStudent() {
+      localStorage.removeItem('cee_last_user');
+      currentStudent = "";
+      userProgress = {};
+      studentNameInput.value = "";
+      trackerScreen.style.display = 'none';
+      loginScreen.style.display = 'flex';
+    }
 
-                section.appendChild(list);
-                container.appendChild(section);
-            });
+    // Auto Check Login on Page Load
+    window.onload = () => {
+      const lastUser = localStorage.getItem('cee_last_user');
+      if (lastUser) {
+        studentNameInput.value = lastUser;
+        loginStudent();
+      }
+    };
 
-            updateDashboard();
-        }
+    // Render HTML dynamically
+    function renderSyllabus() {
+      container.innerHTML = '';
+      
+      syllabusData.forEach((subjectObj, sIndex) => {
+        const card = document.createElement('div');
+        card.className = 'subject-card';
 
-        // Helper function to assign CSS classes based on status
-        function getStatusClass(status) {
-            if (status === 'not-touched') return 'status-not-touched';
-            if (status === 'little') return 'status-little';
-            if (status === 'fully') return 'status-fully';
-            return '';
-        }
+        // Header
+        const header = document.createElement('div');
+        header.className = 'subject-header';
+        header.innerHTML = `<h2>${subjectObj.subject}</h2> <span class="marks-badge">${subjectObj.totalMarks} Questions</span>`;
+        card.appendChild(header);
 
-        // Save progress to Browser's Local Storage
-        function saveProgress() {
-            localStorage.setItem('ceeProgress', JSON.stringify(userProgress));
-        }
+        // Topics
+        subjectObj.topics.forEach((topic, tIndex) => {
+          const topicId = `s${sIndex}_t${tIndex}`;
+          const currentStatus = userProgress[topicId] || 'remaining';
 
-        // Calculate and update the numbers at the top of the page
-        function updateDashboard() {
-            let notTouched = 0;
-            let little = 0;
-            let fully = 0;
+          const item = document.createElement('div');
+          item.className = 'topic-item';
+
+          // Info
+          const info = document.createElement('div');
+          info.className = 'topic-info';
+          info.innerHTML = `
+            <span class="topic-name">${topic.name}</span>
+            <span class="topic-weight">Weightage: ${topic.weight} Qs</span>
+          `;
+
+          // Dropdown
+          const select = document.createElement('select');
+          select.className = getStatusClass(currentStatus);
+          
+          const options = [
+            { val: 'remaining', text: '🔴 Remaining / Not Started' },
+            { val: 'progress', text: '🟡 In Progress / Little Confident' },
+            { val: 'completed', text: '🟢 Completed / Fully Confident' }
+          ];
+
+          options.forEach(opt => {
+            const optionEl = document.createElement('option');
+            optionEl.value = opt.val;
+            optionEl.innerText = opt.text;
+            if(opt.val === currentStatus) optionEl.selected = true;
+            select.appendChild(optionEl);
+          });
+
+          // Change Event Trigger -> Auto Save
+          select.addEventListener('change', (e) => {
+            const newVal = e.target.value;
+            userProgress[topicId] = newVal;
+            select.className = getStatusClass(newVal);
             
-            // Calculate total chapters
-            const totalChapters = ceeSyllabus.reduce((acc, curr) => acc + curr.chapters.length, 0);
+            updateDashboard();
+            autoSaveData();
+          });
 
-            // Count based on saved progress
-            Object.values(userProgress).forEach(status => {
-                if (status === 'not-touched') notTouched++;
-                if (status === 'little') little++;
-                if (status === 'fully') fully++;
-            });
+          item.appendChild(info);
+          item.appendChild(select);
+          card.appendChild(item);
+        });
 
-            // If a chapter isn't in userProgress yet, it means it's 'not-touched'
-            const unrecorded = totalChapters - (notTouched + little + fully);
-            notTouched += unrecorded;
+        container.appendChild(card);
+      });
 
-            document.getElementById('count-not').innerText = notTouched;
-            document.getElementById('count-little').innerText = little;
-            document.getElementById('count-fully').innerText = fully;
-        }
+      updateDashboard();
+    }
 
-        // Initialize App
-        renderSyllabus();
+    // Assign text colors
+    function getStatusClass(status) {
+      if (status === 'remaining') return 'status-remaining';
+      if (status === 'progress') return 'status-progress';
+      if (status === 'completed') return 'status-completed';
+      return '';
+    }
 
-    </script>
+    // Calculate Stats & Progress bar
+    function updateDashboard() {
+      let total = 0;
+      let completed = 0;
+      let remaining = 0;
+
+      syllabusData.forEach((subjectObj, sIndex) => {
+        subjectObj.topics.forEach((topic, tIndex) => {
+          total++;
+          const status = userProgress[`s${sIndex}_t${tIndex}`] || 'remaining';
+          if (status === 'completed') {
+            completed++;
+          } else {
+            remaining++; // Treat 'remaining' and 'progress' both as not complete yet
+          }
+        });
+      });
+
+      document.getElementById('stat-total').innerText = total;
+      document.getElementById('stat-completed').innerText = completed;
+      document.getElementById('stat-remaining').innerText = remaining;
+
+      // Progress Bar calculation
+      const percentage = Math.round((completed / total) * 100) || 0;
+      document.getElementById('progress-bar').style.width = percentage + '%';
+      document.getElementById('progress-text').innerText = percentage + '%';
+    }
+
+    // Auto-Save background function
+    function autoSaveData() {
+      if (!currentStudent) return;
+      
+      const key = getStorageKey(currentStudent);
+      localStorage.setItem(key, JSON.stringify(userProgress));
+
+      // Show temporary "Saved!" notification
+      const indicator = document.getElementById('save-indicator');
+      indicator.innerText = `✅ Progress saved automatically for ${currentStudent}`;
+      
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => {
+        indicator.innerText = '';
+      }, 3000);
+    }
+
+    // Allow Enter key to submit login
+    studentNameInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        loginStudent();
+      }
+    });
+
+  </script>
 </body>
 </html>
